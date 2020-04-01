@@ -1,0 +1,283 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+##  2016년 분기별 서울,경기,전북
+
+```{r}
+
+load("../refinedata/analysis/analysis_total_Fixed.rda")
+library(dplyr)
+
+
+```
+
+```{r}
+
+analysis_2016_quarter1 <- analysis_total_Fixed  %>% filter(substr(일시,1,7)=='2016-01'|substr(일시,1,7)=='2016-02')
+
+analysis_2016_quarter1 <- analysis_2016_quarter1 %>% filter(시도 %in% c("서울","경기","전북")) 
+
+analysis_2016_quarter1 <- analysis_2016_quarter1 %>% mutate(발생율 = 발생건수/인구수*10000)
+
+analysis_2016_quarter1 <- analysis_2016_quarter1 %>% select(-일시,-시도,-PM10등급,-PM25등급,-년도,-인구수,-`최다풍향(16방위)`)
+
+analysis_2016_quarter1 <- analysis_2016_quarter1[-1]
+
+analysis_2016_quarter1 <- as.data.frame(scale(analysis_2016_quarter1))
+
+
+```
+
+
+```{r}
+
+analysis_2016_quarter2 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2016-03'|substr(일시,1,7)=='2016-04'|substr(일시,1,7)=='2016-05')
+
+analysis_2016_quarter2 <- analysis_2016_quarter2 %>% filter(시도 %in% c("서울","경기","전북")) 
+
+analysis_2016_quarter2 <- analysis_2016_quarter2 %>% mutate(발생율 = 발생건수/인구수*10000)
+
+analysis_2016_quarter2 <- analysis_2016_quarter2 %>% select(-일시,-시도,-PM10등급,-PM25등급,-년도,-인구수,-`최다풍향(16방위)`)
+
+analysis_2016_quarter2 <- analysis_2016_quarter2[-1]
+
+analysis_2016_quarter2 <- as.data.frame(scale(analysis_2016_quarter2))
+
+```
+
+
+```{r}
+
+analysis_2016_quarter3 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2016-06'|substr(일시,1,7)=='2016-07'|substr(일시,1,7)=='2016-08')
+
+analysis_2016_quarter3 <- analysis_2016_quarter3 %>% filter(시도 %in% c("서울","경기","전북"))
+
+analysis_2016_quarter3 <- analysis_2016_quarter3 %>% mutate(발생율 = 발생건수/인구수*10000)
+
+analysis_2016_quarter3 <- analysis_2016_quarter3 %>% select(-일시,-시도,-PM10등급,-PM25등급,-년도,-인구수,-`최다풍향(16방위)`,-`일 최심신적설(cm)`,-`일강수량(mm)`,-`강수 계속시간(hr)`)
+
+analysis_2016_quarter3 <- analysis_2016_quarter3[-1]
+
+analysis_2016_quarter3 <- as.data.frame(scale(analysis_2016_quarter3))
+
+```
+
+
+```{r}
+
+analysis_2016_quarter4 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2016-09'|substr(일시,1,7)=='2016-10'|substr(일시,1,7)=='2016-11')
+
+analysis_2016_quarter4 <- analysis_2016_quarter4 %>% filter(시도 %in% c("서울","경기","전북")) 
+
+analysis_2016_quarter4 <- analysis_2016_quarter4 %>% mutate(발생율 = 발생건수/인구수*10000)
+
+analysis_2016_quarter4 <- analysis_2016_quarter4 %>% select(-일시,-시도,-PM10등급,-PM25등급,-년도,-인구수,-`최다풍향(16방위)`)
+
+analysis_2016_quarter4 <- analysis_2016_quarter4[-1]
+
+analysis_2016_quarter4 <- as.data.frame(scale(analysis_2016_quarter4))
+
+```
+
+
+
+```{r}
+
+library(corrplot, quietly = TRUE)
+
+corrplot(cor(analysis_2016_quarter1 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2016_quarter2 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2016_quarter3 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2016_quarter4 ), method="circle")
+
+```
+
+```{r}
+cor(analysis_2016_quarter1 )
+
+```
+
+
+```{r}
+cor(analysis_2016_quarter2 )
+
+```
+
+```{r}
+cor(analysis_2016_quarter3 )
+
+```
+
+```{r}
+cor(analysis_2016_quarter4 )
+
+```
+
+
+```{r}
+
+library(MASS)
+
+
+fitdata <- analysis_2016_quarter1
+fit1 <- lm(발생건수 ~ .,data = fitdata)
+fit2 <- lm(발생건수 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <-  lm(formula = 발생건수 ~ 발생율 + `평균 풍속(m/s)` + SO2 + `강수 계속시간(hr)` + 
+    `일강수량(mm)` + `평균 현지기압(hPa)` + PM25 + CO + `평균기온(°C)` + 
+    PM10, data = analysis_2016_quarter1)
+
+summary(fit)
+
+```
+
+
+
+```{r}
+fitdata <- analysis_2016_quarter2
+fit1 <- lm(발생건수 ~ .,data = fitdata)
+fit2 <- lm(발생건수 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <- lm(formula = 발생건수 ~ 발생율 + `평균 풍속(m/s)` + CO + NO2 + 
+    PM25 + `최고기온(°C)` + `강수 계속시간(hr)` + `최저기온(°C)` + 
+    `일강수량(mm)` + O3 + SO2, data = analysis_2016_quarter2)
+
+summary(fit)
+
+```
+
+
+```{r}
+fitdata <- analysis_2016_quarter3
+fit1 <- lm(발생건수 ~ .,data = fitdata)
+fit2 <- lm(발생건수 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+ fit <- lm(formula = 발생건수 ~ 발생율 + `평균 풍속(m/s)` + CO + PM10 + 
+    NO2 + PM25 + O3, 
+data = analysis_2016_quarter3)
+
+summary(fit)
+
+```
+
+
+```{r}
+fitdata <- analysis_2016_quarter4
+fit1 <- lm(발생건수 ~ .,data = fitdata)
+fit2 <- lm(발생건수 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit<- lm(formula = 발생건수 ~ 발생율 + `평균 풍속(m/s)` + CO + PM25 + 
+    O3 + `강수 계속시간(hr)` + PM10 + NO2 + `평균 현지기압(hPa)` + 
+    `평균기온(°C)` + `일 최심신적설(cm)`, data =analysis_2016_quarter4)
+
+summary(fit)
+
+```
+
+
+
+```{r}
+
+library(MASS)
+
+
+fitdata <- analysis_2016_quarter1
+fit1 <- lm(발생율 ~ .,data = fitdata)
+fit2 <- lm(발생율 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <-  lm(formula = 발생율 ~ 발생건수 + `평균 현지기압(hPa)` + `강수 계속시간(hr)` + 
+    PM25 + NO2 + SO2 + PM10 + `일강수량(mm)` + `평균기온(°C)`, data = analysis_2016_quarter1)
+
+summary(fit)
+
+```
+
+
+
+```{r}
+fitdata <- analysis_2016_quarter2
+fit1 <- lm(발생율 ~ .,data = fitdata)
+fit2 <- lm(발생율 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <- lm(formula = 발생율 ~ 발생건수 + CO + SO2 + PM10 + `평균 풍속(m/s)` + 
+    `일강수량(mm)` + `강수 계속시간(hr)` + PM25 + NO2, data = analysis_2016_quarter2)
+
+summary(fit)
+
+```
+
+
+```{r}
+fitdata <- analysis_2016_quarter3
+fit1 <- lm(발생율 ~ .,data = fitdata)
+fit2 <- lm(발생율 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+ fit <- lm(formula = 발생율 ~ 발생건수 + CO + `최저기온(°C)` + SO2 + 
+    O3 + NO2 + PM10 + `평균기온(°C)`, 
+data = analysis_2016_quarter3)
+
+summary(fit)
+
+```
+
+
+```{r}
+fitdata <- analysis_2016_quarter4
+fit1 <- lm(발생율 ~ .,data = fitdata)
+fit2 <- lm(발생율 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit<- lm(formula = 발생율 ~ 발생건수 + NO2 + PM25 + PM10 + CO + SO2 + 
+    O3 + `평균 현지기압(hPa)`, data =analysis_2016_quarter4)
+
+summary(fit)
+
+```

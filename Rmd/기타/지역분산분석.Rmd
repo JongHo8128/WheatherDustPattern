@@ -1,0 +1,226 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r}
+load("../../refinedata/analysis/analysis_total.rda")
+library(dplyr)
+library(multcomp)
+
+analysis_total$시도 <- factor(analysis_total$시도)
+fit <- aov(formula=발병률~시도,data=analysis_total)
+summary(fit)
+```
+
+
+```{r} 
+
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+
+
+
+```
+
+
+
+```{r echo=FALSE}
+aggregate(formula=발병률~시도,data=analysis_total,FUN=mean) %>% arrange(발병률)
+
+```
+
+
+```{r}
+
+fit <- aov(formula=PM25~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+```{r}
+aggregate(formula=PM25~시도,data=analysis_total,FUN=mean) %>% arrange(PM25)
+```
+
+
+```{r}
+
+fit <- aov(formula=PM10~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+
+```
+
+```{r}
+aggregate(formula=PM10~시도,data=analysis_total,FUN=mean) %>% arrange(PM10)
+```
+
+
+```{r}
+
+fit <- aov(formula=`평균기온(°C)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+
+```
+
+
+```{r}
+aggregate(formula=`평균기온(°C)`~시도,data=analysis_total,FUN=mean) %>% arrange(`평균기온(°C)`)
+```
+
+
+```{r}
+fit <- aov(formula=`평균 풍속(m/s)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+```{r}
+aggregate(formula=`평균 풍속(m/s)`~시도,data=analysis_total,FUN=mean) %>% arrange(`평균 풍속(m/s)`)
+```
+
+
+```{r}
+fit <- aov(formula=`평균 현지기압(hPa)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+
+
+
+```{r}
+aggregate(formula=`평균 현지기압(hPa)`~시도,data=analysis_total,FUN=mean) %>% arrange(`평균 현지기압(hPa)`)
+```
+
+
+
+
+```{r}
+fit <- aov(formula=`일 최심신적설(cm)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+
+
+
+
+```{r}
+fit <- aov(formula=`일강수량(mm)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+```{r}
+fit <- aov(formula=`강수 계속시간(hr)`~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+```{r}
+fit <- aov(formula=SO2~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+```{r}
+aggregate(formula=SO2~시도,data=analysis_total,FUN=mean) %>% arrange(SO2)
+```
+
+
+```{r}
+fit <- aov(formula=CO~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+```{r}
+aggregate(formula=CO~시도,data=analysis_total,FUN=mean) %>% arrange(CO)
+```
+
+```{r}
+fit <- aov(formula=O3~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+
+```{r}
+aggregate(formula=O3~시도,data=analysis_total,FUN=mean) %>% arrange(O3)
+```
+
+
+
+```{r}
+fit <- aov(formula=NO2~시도,data=analysis_total)
+summary(fit)
+```
+
+```{r}
+tuk <- glht(fit, linfct=mcp(시도='Tukey'))
+plot( cld(tuk, level = .05), col='lightgray'   )
+```
+
+
+
+```{r}
+aggregate(formula=NO2~시도,data=analysis_total,FUN=mean) %>% arrange(NO2)
+```
+
+
+
+

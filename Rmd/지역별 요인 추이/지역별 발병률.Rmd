@@ -1,0 +1,352 @@
+---
+---
+
+
+## 지역별 시계열 시각화
+
+```{r}
+load("../../refinedata/analysis/analysis_total.rda")
+library(dplyr)
+
+```
+
+
+# 발병률 전체
+
+```{r}
+
+analysis_sido_day <- analysis_total  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 전체')
+
+
+
+```
+
+# 발병률 서울
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='서울')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 서울')
+
+
+
+```
+
+# 발병률 부산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='부산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 부산')
+
+
+```
+
+# 발병률 대구
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대구')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 대구')
+
+
+```
+
+
+# 발병률 인천
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='인천')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 인천')
+
+
+
+```
+
+# 발병률 광주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='광주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 광주')
+
+
+
+```
+
+
+# 발병률 대전
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대전')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 대전')
+
+
+
+```
+
+# 발병률 울산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='울산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 울산')
+
+
+
+```
+
+# 발병률 세종
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='세종')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 세종')
+
+
+
+```
+
+# 발병률 제주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='제주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 제주')
+
+
+
+```
+
+# 발병률 경기
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경기')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 경기')
+
+
+
+```
+
+# 발병률 강원
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='강원')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 강원')
+
+
+
+```
+
+# 발병률 충북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 충북')
+
+
+
+```
+
+# 발병률 충남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 충남')
+
+
+
+```
+
+# 발병률 전북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 전북')
+
+
+```
+
+# 발병률 전남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 전남')
+
+
+```
+
+# 발병률 경북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 경북')
+
+
+```
+
+# 발병률 경남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '발병률 경남')
+
+
+
+```
+

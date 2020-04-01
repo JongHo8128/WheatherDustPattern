@@ -1,0 +1,364 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+## 지역별 시계열 시각화
+
+# 전국 일 일강수량(mm)
+
+```{r}
+library(dplyr)
+load("../../refinedata/analysis/analysis_total.rda")
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+# 서울 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '서울') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '서울 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+# 부산 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '부산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '부산 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 대구 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '대구') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대구 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 인천 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '인천') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '인천 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+# 광주 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '광주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '광주 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 대전 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '대전') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대전 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 울산 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '울산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '울산 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 세종 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '세종') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '세종 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+#
+```
+
+
+# 제주 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '제주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '제주 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 경기 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '경기') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경기 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 강원 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '강원') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '강원 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 충북 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '충북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충북 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 충남 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '충남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충남 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 전북 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '전북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전북 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 전남 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '전남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전남 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 경북 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '경북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경북 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```
+
+
+# 경남 일강수량(mm)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 == '경남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경남 일강수량')
+
+#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+
+```

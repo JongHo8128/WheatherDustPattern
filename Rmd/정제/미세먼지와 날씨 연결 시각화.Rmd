@@ -1,0 +1,83 @@
+---
+title: "미세먼지와 날씨 연결 시각화"
+output: html_document
+---
+
+```{r include=FALSE}
+library(ggplot2)
+library(plotly)
+library(readr)
+library(dplyr)
+
+
+
+#-----------------------------------------
+#데이터 가져오기
+#----------------------------------------
+
+df_total<- read_csv("../../refinedata/weather/dust_data.csv",locale=locale('ko',encoding='euc-kr'))
+weather_2016<- read_csv("../../lawdata/weather/기상관측2016real_Fixed.csv",locale=locale('ko',encoding='euc-kr'))
+```
+
+```{r}
+#-----------------------------------------
+#2016년 데이터 가져오기
+#----------------------------------------
+
+dust_2016 <- df_total[0:6222,]
+dust_2016 <- dust_2016 %>% select(-X1)
+dust_2016 <- rename(dust_2016,일시=측정일시,시도코드=code)
+
+```
+
+
+```{r}
+#-----------------------------------------
+#날짜 정제
+#----------------------------------------
+
+weather_2016 <- weather_2016 %>% select(-X1)
+weather_2016$시계열<-paste(substring(weather_2016$일시,1,4),"-",substring(weather_2016$일시,5,6),sep="")
+weather_2016
+
+```
+
+
+```{r}
+climate_2016<- inner_join(weather_2016,dust_2016,by=c("일시","시도코드"))
+climate_2016
+```
+
+```{r}
+library(dplyr)
+unique_2016 <-climate_2016 %>% group_by(일시) %>% summarise(PM10 = mean(PM10),PM25 = mean(PM25))
+unique_2016
+```
+
+```{r}
+#-----------------------------------------
+#시각화
+#----------------------------------------
+
+ggplot(data=climate_2016,aes(x=시계열,y=PM10))+geom_boxplot()
+
+```
+
+```{r}
+gg<-ggplot(data=unique_2016,aes(x=일시,y=PM10))+geom_path(color='red')+ scale_x_continuous(breaks=seq(20160101,20161231,100)) + scale_y_continuous(breaks=seq(0,150,25))
+gg + geom_path(aes(x=일시,y=PM25),color='blue')
+
+```
+
+```{r}
+sido_2016 <-climate_2016 %>% group_by(일시,시도) %>% summarise(PM10 = mean(PM10),PM25 = mean(PM25))
+
+ggplot(data=sido_2016,aes(x=일시,y=PM25,colour=시도))+geom_line()+ scale_x_continuous(breaks=seq(20160101,20161231,100)) + scale_y_continuous(limits = c(0, 150))
+```
+
+
+
+
+
+
+

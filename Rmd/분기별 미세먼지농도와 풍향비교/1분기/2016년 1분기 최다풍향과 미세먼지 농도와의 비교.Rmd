@@ -1,0 +1,602 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r}
+load("../../../refinedata/analysis/analysis_total_Fixed.rda")
+library(dplyr)
+
+analysis_total_Fixed <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2016-01'|substr(일시,1,7)=='2016-02')
+
+analysis_total_Fixed$`최다풍향(16방위)` <- as.factor(analysis_total_Fixed$`최다풍향(16방위)`)
+
+analysis_total <- analysis_total_Fixed %>% dplyr::select(`최다풍향(16방위)`, PM10, PM25)
+
+analysis_total <- rename(analysis_total,wind = `최다풍향(16방위)`)
+
+fit.aov <- aov(formula = PM10 ~ wind,data = analysis_total)
+
+summary(fit.aov)
+
+```
+
+```{r echo=FALSE}
+library(multcomp)
+fit.aov
+tuk <- glht(fit.aov, linfct=mcp(wind = 'Tukey'))
+plot( cld(tuk, level = .05), col='lightgray' )
+```
+
+```{r}
+library(readr)
+
+
+
+library(dplyr)
+
+temp <- analysis_total_Fixed %>% dplyr::select(시도코드,`최다풍향(16방위)`) 
+
+library(data.table)
+
+#temp <- melt(temp,id.vars=c("시도"))
+
+#temp
+
+library(prettyR)
+
+temp <- rename(temp , 최다풍향=`최다풍향(16방위)` )
+
+temp$최다풍향 <- as.factor(temp$최다풍향)
+temp$시도코드 <- as.factor(temp$시도코드)
+
+
+temp2 <- xtabs(data=temp,formula = ~시도코드+최다풍향 )
+temp2 <- as.data.frame(temp2)
+
+```
+
+```{r}
+
+library(kormaps2014)
+library(ggiraphExtra)
+library(ggplot2)
+library(data.table)
+library(dplyr)
+
+tempmap <- kormap1 
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp_map_join <- inner_join(tempmap,df_sido,by=c('name1'))
+
+temp_map_join <- temp_map_join %>% dplyr::select(-code.x)
+temp_map_join <- rename(temp_map_join,code=code.y)
+temp_map_join$code <- as.character(temp_map_join$code)
+
+
+temp_map_join$region <- temp_map_join$code
+temp_map_join$SIDO_CD <- temp_map_join$code
+
+```
+
+
+
+
+
+```{r}
+ggChoropleth(data=analysis_total_Fixed, 
+             
+             aes(fill=PM10, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+```
+```{r}
+ggChoropleth(data=analysis_total_Fixed, 
+             
+             aes(fill=PM25, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 1)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 2)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 3)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 4)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 5)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 6)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 7)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 8)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 9)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 10)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 11)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 12)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 13)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 14)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 15)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```
+
+```{r}
+
+temp3 <- temp2 %>% filter(최다풍향 == 16)
+
+code <- c('42','41','43','44','30','47','48','45','46','11','28','27','31','29','26','49','36') 
+name1 <- c('강원도','경기도','충청북도','충청남도','대전광역시','경상북도','경상남도','전라북도','전라남도','서울특별시','인천광역시','대구광역시','울산광역시','광주광역시','부산광역시','제주특별자치도','세종특별자치시')
+df_sido <- data.frame("code"=code,"name1"=name1)
+
+temp3 <- inner_join(temp3,df_sido,by=c("시도코드"="code"))
+str(temp3)
+str(df_sido)
+
+ggChoropleth(data=temp3, 
+             
+             aes(fill=Freq, 
+                 
+                 map_id=시도코드,
+                 
+                 tooltip=name1
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=TRUE)
+
+
+```

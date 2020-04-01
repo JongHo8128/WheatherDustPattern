@@ -1,0 +1,364 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+## 지역별 시계열 시각화
+
+# 전국 강수 계속시간(hr)
+
+```{r}
+library(dplyr)
+load("../refinedata/analysis/analysis_total.rda")
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+# 서울 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '서울' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '서울 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+# 부산 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '부산' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '부산 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 대구 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '대구' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대구 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 인천 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '인천' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '인천 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+# 광주 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '광주' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '광주 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 대전 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '대전' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대전 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 울산 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '울산' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '울산 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 세종 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '세종' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '세종 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 제주 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '제주' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '제주 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 경기 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경기' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경기 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 강원 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '강원' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '강원 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 충북 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '충북' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충북 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 충남 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '충남' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충남 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 전북 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '전북' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전북 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 전남 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '전남' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전남 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 경북 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경북' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경북 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```
+
+
+# 경남 강수 계속시간(hr)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경남' ) %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`강수 계속시간(hr)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경남 강수 계속시간')
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+```

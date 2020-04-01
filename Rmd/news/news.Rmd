@@ -1,0 +1,108 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r}
+library(readxl)
+NewsResult <- read_excel("../../refinedata/news/NewsResult_20160101-20181231.xlsx")
+content <- c()
+
+for( i in 1:nrow(NewsResult)){
+   content[length(content)+1]<-NewsResult$본문[i]
+}
+
+
+library(tm)
+library(SnowballC)
+
+corpus <- Corpus(VectorSource(content))
+
+corpus <- tm_map(corpus, content_transformer(tolower)) 
+corpus <- tm_map(corpus, removeNumbers) 
+corpus <- tm_map(corpus, removeWords, stopwords('english')) 
+corpus <- tm_map(corpus, removePunctuation) 
+corpus <- tm_map(corpus, stripWhitespace)
+
+dtm <- DocumentTermMatrix(corpus)
+
+inspect(dtm)
+
+m <- as.matrix(dtm)
+
+v <- sort(colSums(m), decreasing = T)
+
+d <- data.frame( word = names(v), freq = v) 
+
+
+```
+
+```{r}
+
+library(wordcloud2)
+library(htmlwidgets)
+library(htmltools)
+library(jsonlite)
+library(yaml)
+library(base64enc)
+
+# wordcloud2(d[1:100,])
+
+```
+
+```{r include=FALSE}
+library(KoNLP)
+library(stringr)
+
+# 시스템 사전 로딩(loading)
+# useSystemDic()
+
+# 세종 사전 로딩(loading)
+useSejongDic()
+
+# NIA 사전 로딩(loading)
+# useNIADic()
+
+set.seed(1234)
+
+content <- str_replace_all(content, "\\W", " ")
+
+content
+
+nouns <- extractNoun(content)
+
+wordcount <- table(unlist(nouns))
+     
+df_word <- as.data.frame(wordcount, stringsAsFactors = F)
+
+library(dplyr)
+
+df_word <- rename(df_word,
+                  word = Var1,
+                  freq = Freq)
+
+df_word <- filter(df_word, nchar(word) >= 2)
+
+df_word <- df_word %>% arrange(desc(freq))
+
+```
+
+
+
+```{r}
+
+library(wordcloud2)
+library(htmlwidgets)
+library(htmltools)
+library(jsonlite)
+library(yaml)
+library(base64enc)
+
+figPath = system.file("examples/4.png",package = "wordcloud2")
+
+wordcloud2(df_word[], figPath = figPath ,size=0.6)
+
+
+
+```
+

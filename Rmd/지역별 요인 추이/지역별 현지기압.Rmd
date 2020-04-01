@@ -1,0 +1,364 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+## 지역별 시계열 시각화
+
+# 서울 평균 현지기압(hPa)
+
+```{r}
+library(dplyr)
+load("../refinedata/analysis/analysis_total.rda")
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '서울 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+# 부산 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+analysis_sido_day
+
+ts <- ts(na.omit(analysis_sido_day[-1]$`평균 현지기압(hPa)`),frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '부산 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 대구 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대구 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 인천 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '인천 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+# 광주 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '광주 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 대전 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '대전 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 울산 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '울산 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 세종 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '세종 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 제주 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '제주 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 경기 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경기 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 강원 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '강원 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 충북 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충북 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 충남 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '충남 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 전북 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전북 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 전남 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '전남 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 경북 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경북 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```
+
+
+# 경남 평균 현지기압(hPa)
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균 현지기압(hPa)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '경남 평균 현지기압(hPa)')
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+
+```

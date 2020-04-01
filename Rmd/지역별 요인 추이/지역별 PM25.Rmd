@@ -1,0 +1,352 @@
+---
+---
+
+
+## 지역별 시계열 시각화
+
+```{r}
+load("../../refinedata/analysis/analysis_total.rda")
+library(dplyr)
+
+```
+
+
+# PM25 전체
+
+```{r}
+
+analysis_sido_day <- analysis_total  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 전체')
+
+
+
+```
+
+# PM25 서울
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='서울')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 서울')
+
+
+
+```
+
+# PM25 부산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='부산')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 부산')
+
+
+```
+
+# PM25 대구
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대구')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 대구')
+
+
+```
+
+
+# PM25 인천
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='인천')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 인천')
+
+
+
+```
+
+# PM25 광주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='광주')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 광주')
+
+
+
+```
+
+
+# PM25 대전
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대전')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 대전')
+
+
+
+```
+
+# PM25 울산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='울산')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 울산')
+
+
+
+```
+
+# PM25 세종
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='세종')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 세종')
+
+
+
+```
+
+# PM25 제주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='제주')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 제주')
+
+
+
+```
+
+# PM25 경기
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경기')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 경기')
+
+
+
+```
+
+# PM25 강원
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='강원')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 강원')
+
+
+
+```
+
+# PM25 충북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충북')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 충북')
+
+
+
+```
+
+# PM25 충남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충남')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 충남')
+
+
+
+```
+
+# PM25 전북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전북')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 전북')
+
+
+```
+
+# PM25 전남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전남')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 전남')
+
+
+```
+
+# PM25 경북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경북')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 경북')
+
+
+```
+
+# PM25 경남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경남')  %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM25 경남')
+
+
+
+```
+

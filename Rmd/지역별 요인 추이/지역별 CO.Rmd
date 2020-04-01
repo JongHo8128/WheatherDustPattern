@@ -1,0 +1,352 @@
+---
+---
+
+
+## 지역별 시계열 시각화
+
+```{r}
+load("../../refinedata/analysis/analysis_total.rda")
+library(dplyr)
+
+```
+
+
+# 일산화 탄소 전체
+
+```{r}
+
+analysis_sido_day <- analysis_total  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 전체')
+
+
+
+```
+
+# 일산화 탄소 서울
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='서울')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 서울')
+
+
+
+```
+
+# 일산화 탄소 부산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='부산')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 부산')
+
+
+```
+
+# 일산화 탄소 대구
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대구')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 대구')
+
+
+```
+
+
+# 일산화 탄소 인천
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='인천')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 인천')
+
+
+
+```
+
+# 일산화 탄소 광주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='광주')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 광주')
+
+
+
+```
+
+
+# 일산화 탄소 대전
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='대전')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 대전')
+
+
+
+```
+
+# 일산화 탄소 울산
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='울산')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 울산')
+
+
+
+```
+
+# 일산화 탄소 세종
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='세종')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 세종')
+
+
+
+```
+
+# 일산화 탄소 제주
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='제주')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 제주')
+
+
+
+```
+
+# 일산화 탄소 경기
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경기')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 경기')
+
+
+
+```
+
+# 일산화 탄소 강원
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='강원')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 강원')
+
+
+
+```
+
+# 일산화 탄소 충북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충북')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 충북')
+
+
+
+```
+
+# 일산화 탄소 충남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='충남')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 충남')
+
+
+
+```
+
+# 일산화 탄소 전북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전북')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 전북')
+
+
+```
+
+# 일산화 탄소 전남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='전남')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 전남')
+
+
+```
+
+# 일산화 탄소 경북
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경북')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 경북')
+
+
+```
+
+# 일산화 탄소 경남
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도=='경남')  %>% group_by(일시) %>% summarise(CO = mean(CO,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소 경남')
+
+
+
+```
+
