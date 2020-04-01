@@ -1,0 +1,193 @@
+load("refinedata/analysis/analysis_total.rda")
+
+analysis_sido <- analysis_total %>% group_by(일시) %>% summarise(`평균기온(°C)` = mean(`평균기온(°C)`,na.rm=TRUE),
+                                                               `평균 풍속(m/s)` = mean(`평균 풍속(m/s)`,na.rm=TRUE),
+                                                               `평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE),
+                                                               `일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE),
+                                                               `일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE),
+                                                               `강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE),
+                                                               SO2 = mean(SO2,na.rm=TRUE),
+                                                               CO = mean(CO,na.rm=TRUE),
+                                                               O3 = mean(O3,na.rm=TRUE),
+                                                               NO2 = mean(NO2,na.rm=TRUE),
+                                                               PM10 = mean(PM10,na.rm=TRUE),
+                                                               PM25 = mean(PM25,na.rm=TRUE),
+                                                               발생건수 = sum(발생건수))
+
+
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`평균기온(°C)` = mean(`평균기온(°C)`,na.rm=TRUE),
+                                                                   `평균 풍속(m/s)` = mean(`평균 풍속(m/s)`,na.rm=TRUE),
+                                                                   `평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE),
+                                                                   발생건수 = sum(발생건수))
+
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(
+                                                                   `일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE),
+                                                                   `일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE),
+                                                                   `강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE),
+                                                                   발생건수 = sum(발생건수))
+
+
+
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(
+                                                                   SO2 = mean(SO2,na.rm=TRUE),
+                                                                   CO = mean(CO,na.rm=TRUE),
+                                                                   O3 = mean(O3,na.rm=TRUE),
+                                                                   발생건수 = sum(발생건수))
+
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(
+  NO2 = mean(NO2,na.rm=TRUE),
+  PM10 = mean(PM10,na.rm=TRUE),
+  PM25 = mean(PM25,na.rm=TRUE),
+  발생건수 = sum(발생건수))
+
+
+
+library(forecast)
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`평균기온(°C)` = mean(`평균기온(°C)`,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$`평균기온(°C)`,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(fit)
+
+#평균기온/여름에는 최고값찍은후 감소/2016년까지 완만한 증가 추세이다가  2017년도에 급격히감소하다 2018년도에 서서히 증가
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`평균 풍속(m/s)` = mean(`평균 풍속(m/s)`,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$`평균 풍속(m/s)`),frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#바람풍속은 일정한 패턴이 없는 것으로 보인다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`평균 풍속(m/s)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$`평균 현지기압(hPa)`),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$`일 최심신적설(cm)`),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#겨울에 최고점을 찍으며 연도를 거듭할수록 최고점이 높아지고 있다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$`일강수량(mm)`),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#강수량은 여름에 최고조를 찍는 것으로 보인다. 2017년 강수량이 적은 것을 볼수 있다.
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$`강수 계속시간(hr)`),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#강수계속시간은 편차가 크며 2018년은로 갈수록 증가 추세이다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(SO2 = mean(SO2,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$SO2),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#이산화황은 겨울에서 봄까지 높은 수치를 기록하다 여름에 떨어졌다가 가을에서 겨울에 오르는 추세이다
+#2018년으로 흘러갈수록 감소 추세이다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(O3 = mean(O3,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$O3),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#오존은 늦봄에 최고치를 직으며 이는 다른 물질에서는 보지 못한 패턴이다 연도별로는 일정해 보인다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(NO2 = mean(NO2,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$NO2),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#이산화 질소는 겨울철에 높은 수치를 찍으며 변동인 큰편이다. 연도별로는 일정해 보인다
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$PM10),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#미세먼지 농도는 늦봄시절에 최고치를 찍는 걸로 보인다. 편차는 커보인 것으로 보인다.
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+
+ts <- ts(scale(analysis_sido_day[-1]$PM25),frequency = 365, start = c(2016,1))
+
+dev.off()
+
+par(mfrow=c(1,1))
+
+plot(ts)
+
+#초미세먼지 농도는 늦봄시절에 최고치를 찍는 걸로 보인다. 편차는 커보인 것으로 보인다. 미세먼지농도보다 조금 앞선 최고치를 이른다
+
+
+
+
+
+
+
