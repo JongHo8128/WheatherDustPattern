@@ -5,7 +5,8 @@
 ## 지역별 시계열 시각화
 
 ```{r}
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 library(dplyr)
 
 ```
@@ -15,7 +16,7 @@ library(dplyr)
 
 ```{r}
 
-analysis_sido_day <- analysis_total  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -26,7 +27,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 전체')
 
-
+# 발병률 전체
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 미세먼지의 영향일지도?)
+# 2016년 감소하다 말부터 증가하기 시작
+# 2017년 중순이후 조금 감소했다가
+# 2018년 초 이후 다시 완만한 증가세
 
 ```
 
@@ -34,7 +41,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='서울')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='서울')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -45,7 +52,14 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 서울')
 
-
+# 발병률 서울
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 미세먼지의 영향일지도?)
+# 2016년 감소하다 말부터 완만하게 증가하기 시작
+# 2017년 중순이후 조금 감소했다가
+# 2018년 초 이후 다시 완만한 증가세
+# 전체 추세랑 비슷
 
 ```
 
@@ -53,7 +67,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='부산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='부산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -64,6 +78,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 부산')
 
+# 발병률 부산
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소하다 말부터 증가하기 시작
+# 2017년 7월 이후 감소세
+# 2018년 초부터 일정하게 유지
 
 ```
 
@@ -71,7 +92,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='대구')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='대구')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -82,6 +103,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 대구')
 
+# 발병률 대구
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소하다 말부터 완만하게 증가하기 시작
+# 2017년 7월 이후 살짝 감소
+# 2018년 초부터 증가세
 
 ```
 
@@ -90,7 +118,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='인천')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='인천')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -101,7 +129,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 인천')
 
-
+# 발병률 인천
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소하다 말부터 완만하게 증가하기 시작
+# 2017년 7월 이후 감소세
 
 ```
 
@@ -109,7 +142,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='광주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='광주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -120,7 +153,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 광주')
 
-
+# 발병률 광주
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 완만하게 감소하다 말부터 증가하기 시작
+# 2017년 7월 이후 감소세
+# 2018년 초부터 증가세
 
 ```
 
@@ -129,7 +168,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='대전')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='대전')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -140,7 +179,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 대전')
 
-
+# 발병률 대전
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소하다 말부터 감소폭이 완만해짐
+# 2018년 초부터 완만하게 증가
 
 ```
 
@@ -148,7 +192,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='울산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='울산')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -159,7 +203,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 울산')
 
-
+# 발병률 울산
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소하다 말부터 증가하기 시작
+# 2017년 7월 이후 감소세
 
 ```
 
@@ -167,7 +216,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='세종')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='세종')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -178,7 +227,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 세종')
 
-
+# 발병률 세종
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 다른지역에 비해 진동폭이 큼
+# 2016년 감소세
+# 2017년 7월 중순이후 증가세
 
 ```
 
@@ -186,7 +241,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='제주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='제주')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -197,7 +252,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 제주')
 
-
+# 발병률 제주
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 일정하게 유지되다 중순이후 감소
+# 2017년에도 일정하게 유지되다 중순부터 증가세 말부터 완만한 증가
+# 2018년 초부터 감소세
 
 ```
 
@@ -205,7 +266,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='경기')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='경기')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -216,7 +277,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 경기')
 
-
+# 발병률 경기
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세
+# 2017년 일정하게 유지되다 말부터 완만한 감소세
+# 2018년 초부터 완만하게 증가
 
 ```
 
@@ -224,7 +291,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='강원')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='강원')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -235,7 +302,14 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 강원')
 
-
+# 발병률 강원
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세
+# 2017년 일정하게 유지되다 말부터 완만한 감소세
+# 2018년 초부터 완만하게 증가
+# 경기랑 추세가 비슷
 
 ```
 
@@ -243,7 +317,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='충북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='충북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -254,7 +328,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 충북')
 
-
+# 발병률 충북
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말부터 완만한 증가세
+# 2017년 말부터 완만한 감소세
+# 2018년 초이후 완만하게 증가
 
 ```
 
@@ -262,7 +342,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='충남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='충남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -273,7 +353,14 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 충남')
 
-
+# 발병률 충남
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말부터 증가세
+# 2017년 말부터 감소세
+# 2018년 초부터 증가
+# 충북과 비슷한 패턴이나 증감폭이 커졌음
 
 ```
 
@@ -281,7 +368,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='전북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='전북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -292,6 +379,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 전북')
 
+# 발병률 전북
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말에 살짝 증가
+# 2017년 일정하게 유지되다 말부터 감소세
+# 2018년 초부터 증가
 
 ```
 
@@ -299,7 +393,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='전남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='전남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -310,6 +404,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 전남')
 
+# 발병률 전남
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말부터 일정하게 유지
+# 2017년 중순 이후 증가하다 말에 다시 감소
+# 2018년 초부터 완만하게 증가
 
 ```
 
@@ -317,7 +418,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='경북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='경북')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -328,6 +429,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 경북')
 
+# 발병률 경북
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말부터 일정하게 유지
+# 2017년 중순부터 증가하다 말에 일정하게 유지
+# 2018년 초부터 완만하게 증가
 
 ```
 
@@ -335,7 +443,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도=='경남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도=='경남')  %>% group_by(일시) %>% summarise(발병률 = mean(발병률,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
@@ -346,7 +454,197 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '발병률 경남')
 
-
+# 발병률 경남
+# 1년을 주기로 반복되는 패턴
+# 12월 최고점, 7월 최저점
+# 3~4월에 증가하는 구간 존재(3~4월 최고치를 찍는 PM10의 영향일지도?)
+# 2016년 감소세 말부터 완만하게 증가
+# 2017년 말에 일정하게 유지
+# 2018년 초부터 완만하게 증가
+# 경북과 패턴 비슷
 
 ```
 
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total_Fixed %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+인천 <- analysis_total_Fixed %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+경기 <- analysis_total_Fixed %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +
+#coord_cartesian(ylim = c(0,0.08))+
+ggtitle("서울 인천 경기 비교")
+
+# 서울, 인천, 경기는 전체적으로 비슷한 패턴
+
+```
+
+```{r}
+광주 <- analysis_total_Fixed %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+대전 <- analysis_total_Fixed %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("광주 대전")
+
+# 광주, 대전은 전체적으로 비슷한 패턴
+
+```
+
+
+```{r}
+
+대구 <- analysis_total_Fixed %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+충남 <- analysis_total_Fixed %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+경남 <- analysis_total_Fixed %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("대구 충남 경남 비교")
+
+# 대구, 충남, 경기는 전체적으로 비슷한 패턴
+
+```
+
+
+```{r}
+울산 <- analysis_total_Fixed %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+부산 <- analysis_total_Fixed %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+전남 <- analysis_total_Fixed %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("울산 부산 전남 비교")
+
+# 울산, 부산, 전남은 전체적으로 비슷한 패턴
+# 다른 지역에 비해 조금 높았음
+
+```
+
+
+```{r}
+충북 <- analysis_total_Fixed %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+전북 <- analysis_total_Fixed %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("충북 전북")
+
+# 충북, 전북은 전체적으로 비슷한 패턴
+
+```
+
+
+```{r}
+경북 <- analysis_total_Fixed %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+강원 <- analysis_total_Fixed %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("경북 강원 비교")
+
+# 경북, 강원은 전체적으로 비슷한 패턴
+
+```
+
+
+```{r}
+세종 <- analysis_total_Fixed %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+제주 <- analysis_total_Fixed %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(발병률= mean(발병률,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.0007))+ 
+ggtitle("세종 제주 비교")
+
+# 비슷한 패턴이나 세종이 제주에 비해 높음
+# 전지역 모두 비슷한 패턴을 보임
+
+```

@@ -1,0 +1,211 @@
+---
+title: "2017년 분기별 경기 회귀분석"
+output: html_document
+---
+
+## 데이터 준비 및 확인
+
+```{r}
+
+load("../../../refinedata/analysis/analysis_total_Fixed.rda")
+library(dplyr)
+
+
+```
+
+# 1분기
+
+```{r}
+
+analysis_2017_quarter1 <- analysis_total_Fixed  %>% filter(substr(일시,1,7)=='2016-12'|substr(일시,1,7)=='2017-01'|substr(일시,1,7)=='2017-02')
+
+analysis_2017_quarter1 <- analysis_2017_quarter1 %>% filter(시도 %in% c("경기")) 
+
+analysis_2017_quarter1 <- analysis_2017_quarter1 %>% dplyr::select(-일시,-시도,-년도,-인구수,-`최다풍향(16방위)`,-발생건수)
+
+analysis_2017_quarter1 <- analysis_2017_quarter1[-1]
+
+analysis_2017_quarter1 <- as.data.frame(scale(analysis_2017_quarter1))
+
+
+```
+
+# 2분기
+
+```{r}
+
+analysis_2017_quarter2 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2017-03'|substr(일시,1,7)=='2017-04'|substr(일시,1,7)=='2017-05')
+
+analysis_2017_quarter2 <- analysis_2017_quarter2 %>% filter(시도 %in% c("경기")) 
+
+
+analysis_2017_quarter2 <- analysis_2017_quarter2 %>% dplyr::select(-일시,-시도,-년도,-인구수,-`최다풍향(16방위)`,-발생건수)
+
+analysis_2017_quarter2 <- analysis_2017_quarter2[-1]
+
+analysis_2017_quarter2 <- as.data.frame(scale(analysis_2017_quarter2))
+
+```
+
+# 3분기
+
+```{r}
+
+analysis_2017_quarter3 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2017-06'|substr(일시,1,7)=='2017-07'|substr(일시,1,7)=='2017-08')
+
+analysis_2017_quarter3 <- analysis_2017_quarter3 %>% filter(시도 %in% c("경기"))
+
+analysis_2017_quarter3 <- analysis_2017_quarter3 %>% dplyr::select(-일시,-시도,-년도,-인구수,-`최다풍향(16방위)`,-발생건수)
+
+analysis_2017_quarter3 <- analysis_2017_quarter3[-1]
+
+analysis_2017_quarter3 <- as.data.frame(scale(analysis_2017_quarter3))
+
+```
+
+# 4분기
+
+```{r}
+
+analysis_2017_quarter4 <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2017-09'|substr(일시,1,7)=='2017-10'|substr(일시,1,7)=='2017-11')
+
+analysis_2017_quarter4 <- analysis_2017_quarter4 %>% filter(시도 %in% c("경기")) 
+
+analysis_2017_quarter4 <- analysis_2017_quarter4 %>% dplyr::select(-일시,-시도,-년도,-인구수,-`최다풍향(16방위)`,-발생건수)
+
+analysis_2017_quarter4 <- analysis_2017_quarter4[-1]
+
+analysis_2017_quarter4 <- as.data.frame(scale(analysis_2017_quarter4))
+
+```
+
+# 상관계수 확인
+
+```{r}
+
+library(corrplot, quietly = TRUE)
+
+corrplot(cor(analysis_2017_quarter1 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2017_quarter2 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2017_quarter3 ), method="circle")
+
+```
+
+
+```{r}
+corrplot(cor(analysis_2017_quarter4 ), method="circle")
+
+```
+
+```{r}
+cor(analysis_2017_quarter1 )
+
+```
+
+
+```{r}
+cor(analysis_2017_quarter2 )
+
+```
+
+```{r}
+cor(analysis_2017_quarter3 )
+
+```
+
+```{r}
+cor(analysis_2017_quarter4 )
+
+```
+
+## 회귀분석
+
+# 1분기
+
+```{r}
+
+library(MASS)
+
+
+fitdata <- analysis_2017_quarter1
+fit1 <- lm(발병률 ~ .,data = fitdata)
+fit2 <- lm(발병률 ~ 1,data = fitdata)
+
+stepAIC(fit1, direction = 'backward')
+# stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <-  lm(formula = 발병률 ~ `평균 풍속(m/s)` + CO + NO2,  data = analysis_2017_quarter1)
+
+summary(fit)
+
+```
+
+# 2분기
+
+```{r}
+fitdata <- analysis_2017_quarter2 %>% dplyr::select(-`일 최심신적설(cm)`)
+fit1 <- lm(발병률 ~ .,data = fitdata)
+fit2 <- lm(발병률 ~ 1,data = fitdata)
+
+stepAIC(fit1, direction = 'backward')
+# stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit <- lm(formula = 발병률 ~ `평균기온(°C)` + `최저기온(°C)` + `평균 현지기압(hPa)` + 
+    `강수 계속시간(hr)` + CO + NO2 + PM10, data = analysis_2017_quarter2)
+
+summary(fit)
+
+```
+
+# 3분기
+
+```{r}
+fitdata <- analysis_2017_quarter3 %>% dplyr::select(-`일 최심신적설(cm)`)
+fit1 <- lm(발병률 ~ .,data = fitdata)
+fit2 <- lm(발병률 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+ fit <- lm(formula = 발병률 ~ `일강수량(mm)` + NO2 + `평균 풍속(m/s)` + 
+    `최저기온(°C)` + `최고기온(°C)` + SO2 + `평균 현지기압(hPa)`, 
+data = analysis_2017_quarter3)
+
+summary(fit)
+
+```
+
+# 4분기
+
+```{r}
+fitdata <- analysis_2017_quarter4
+fit1 <- lm(발병률 ~ .,data = fitdata)
+fit2 <- lm(발병률 ~ 1,data = fitdata)
+stepAIC(fit2,direction="both",scope=list(upper=fit1,lower=fit2))
+
+```
+
+```{r}
+fit<- lm(formula = 발병률 ~ NO2 + CO + `평균 풍속(m/s)` + `최저기온(°C)` + 
+    `최고기온(°C)`, data =analysis_2017_quarter4)
+
+summary(fit)
+
+```

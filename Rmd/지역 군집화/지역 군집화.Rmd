@@ -4,10 +4,16 @@ output: html_document
 ---
 
 ```{r include=FALSE}
-library(dplyr)
+# 군집화
+
+# 계층적 군집분석
 load('../../refinedata/analysis/analysis_total_Fixed.rda')
 analysis_total <- analysis_total_Fixed
+library(dplyr)
 
+```
+
+```{r}
 analysis_total <- analysis_total %>% 
   group_by(시도) %>% 
   summarise(
@@ -28,51 +34,49 @@ analysis_total <- analysis_total %>%
     발병률 = sum(발병률)
   )	
 
-```
-
-
-```{r}
-
-rownames(analysis_total) <- analysis_total$시도
-
-analysis_total <- analysis_total %>% dplyr::select(-`최저기온(°C)`,-`최고기온(°C)`,-시도)
 
 
 
-df <- scale(analysis_total)
+analysis_total_1 <- analysis_total %>% select(-`최저기온(°C)`,-`최고기온(°C)`)
+
+
+analysis_total_1 <- analysis_total_1[-1]
+
+rownames(analysis_total_1) <- analysis_total$시도
+
+
+df <- scale(analysis_total_1)
 
 d <- dist(df)
 
-fit <- hclust(d, method='ward') 
+ fit <- hclust(d, method='ward') 
 
 plot(fit, hang=-1)
-
 ```
 
-# k=5 군집개수로 수형도의 군집들을 자름!!
-
 ```{r}
-set.seed(12)
-clusters <- cutree(fit, k = 5)
+# k=5 군집개수로 수형도의 군집들을 자름!!
+clusters <- cutree(fit, k = 8)
 
 
-table(clusters)
-
-# (2) K-means clustering with k=3 수행
-fit2 <- kmeans(analysis_total, centers = 5) 
+fit$clusters <- clusters
 
 library(cluster)
 
 # (4) 차원축소 후, 군집결과 시각화
 clusplot(
-  analysis_total, 
-  fit2$cluster, 
+  analysis_total_1, 
+  fit$cluster, 
   color = T, 
   shade = T,
   labels = 2,
   lines = 0
 )
+
+
 ```
+
+
 
 
 

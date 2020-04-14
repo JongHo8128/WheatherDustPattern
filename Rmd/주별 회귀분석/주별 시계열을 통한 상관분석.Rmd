@@ -1,0 +1,232 @@
+---
+title: "주별 시계열을 통한 상관분석"
+output: html_document
+---
+
+```{r}
+load('../../refinedata/analysis/analysis_total_Fixed.rda')
+library(dplyr)
+library(FinCal)
+library(car)
+library(gvlma)
+library(ggplot2)
+library(tidyr)
+library(forecast)
+
+n <- rep(1:157,each = 7)
+analysis_total_Fixed$주 <- rep(n[1:1096], 17)
+analysis_total_Fixed <- as.data.frame(analysis_total_Fixed)
+analysis_total_week <- analysis_total_Fixed %>% 
+  group_by(주) %>% 
+  summarise(`평균기온(°C)` = mean(`평균기온(°C)`),
+            `평균 풍속(m/s)` = mean(`평균 풍속(m/s)`),
+            `평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`),
+            `일강수량(mm)` = mean(`일강수량(mm)`),
+            SO2 = geometric.mean(SO2),
+            CO = geometric.mean(CO),
+            O3 = geometric.mean(O3),
+            NO2 = geometric.mean(NO2),
+            PM10 = geometric.mean(PM10),
+            PM25 = geometric.mean(PM25),
+            발병률 = sum(발병률)
+            )
+```
+
+```{r}
+#다중 공산성 확인
+fit <- lm(data = analysis_total_week[c(-1,-2,-11)], formula = 발병률 ~ .)
+summary(fit)
+```
+
+```{r}
+vif(fit)
+```
+
+```{r}
+fit <- lm(data = analysis_total_week[-1], formula = 발병률 ~ SO2 + CO + O3 + NO2 + PM10)
+summary(fit)
+```
+
+```{r}
+vif(fit)
+```
+
+```{r}
+# 주별 시계열 그래프 및 시계열 자료형을 통한 회귀분석
+analysis_total_week <- as.data.frame(analysis_total_week)
+ts_week <- ts(analysis_total_week[-1])
+```
+
+
+```{r}
+# 발병률
+ts <- ts(analysis_total_week$발병률, start = c(2016, 1), freq = 52)
+
+fit <- stl(ts, s.window = 'periodic')
+plot(fit)
+```
+
+
+
+```{r}
+# 미세먼지
+
+ts <- ts(analysis_total_week$PM10, start = c(2016, 1), freq = 52)
+
+fit <- stl(ts, s.window = 'periodic')
+plot(fit)
+```
+
+
+
+```{r}
+# PM25
+
+ts <- ts(analysis_total_week$PM25, start = c(2016, 1), freq = 52)
+
+fit <- stl(ts, s.window = 'periodic')
+plot(fit)
+```
+
+```{r}
+ts<-ts(analysis_total_week[-1], start = c(2016, 1), freq = 52)
+ts_temperature <- ts(analysis_total_week$`평균기온(°C)`, start = c(2016, 1), freq = 52)
+ts_air <- ts(analysis_total_week$`평균 현지기압(hPa)`, start = c(2016, 1), freq = 52)
+ts_wind <- ts(analysis_total_week$`평균 풍속(m/s)`, start = c(2016, 1), freq = 52)
+ts_rain <- ts(analysis_total_week$`일강수량(mm)`, start = c(2016, 1), freq = 52)
+ts_CO <- ts(analysis_total_week$CO, start = c(2016, 1), freq = 52)
+ts_발병률 <- ts(analysis_total_week$발병률, start = c(2016, 1), freq = 52)
+ts_NO2 <- ts(analysis_total_week$NO2, start = c(2016, 1), freq = 52)
+ts_SO2 <- ts(analysis_total_week$SO2, start = c(2016, 1), freq = 52)
+ts_O3 <- ts(analysis_total_week$O3, start = c(2016, 1), freq = 52)
+ts_PM10 <- ts(analysis_total_week$PM10, start = c(2016, 1), freq = 52)
+ts_PM25 <- ts(analysis_total_week$PM25, start = c(2016, 1), freq = 52)
+
+```
+
+
+
+```{r}
+fit <- lm(ts_발병률 ~ ts_temperature + ts_air + ts_rain + ts_wind + ts_CO + ts_SO2 + ts_NO2 + ts_O3 + ts_PM10 + ts_PM25)
+par(mfrow = c(2,2))
+plot(fit)
+```
+
+```{r}
+summary(fit)
+```
+
+```{r}
+gvlma(fit)
+```
+
+
+
+```{r}
+vif(fit)
+```
+```{r}
+ts_O3 <- ts(lag(analysis_total_week$O3,30), start = c(2016, 1), freq = 52)
+fit <- lm( ts_발병률~ts_O3)
+par(mfrow = c(2,2))
+plot(fit)
+```
+```{r}
+summary(fit)
+```
+
+```{r}
+gvlma(fit)
+```
+
+
+
+
+```{r}
+fit <- lm(formula = ts_발병률 ~ ts_air + ts_wind + ts_CO + ts_SO2 + 
+             ts_NO2 + ts_O3)
+par(mfrow = c(2,2))
+plot(fit)
+```
+
+```{r}
+summary(fit)
+```
+
+
+```{r}
+gvlma(fit)
+```
+
+```{r}
+vif(fit)
+```
+
+
+
+
+```{r}
+df <- analysis_total_week %>%
+  dplyr::select(주, 발병률 ,O3) %>% 
+  gather(key = "variable", value = "value", -주)
+
+ggplot(df, aes(x = 주, y = value)) + 
+  geom_line(aes(color = variable), size = 1) + 
+  # scale_color_manual(values = c("#00AFBB", "#E7B800", )) +
+  theme_minimal()
+```
+
+
+
+
+```{r}
+fit <- lm(발병률 ~ ., data = analysis_total_week[c(-1,-6,-8)])
+summary(fit)
+car::vif(fit)
+```
+
+
+
+```{r}
+fit <- auto.arima(ts[,'발병률'],
+                  xreg=ts[,'O3'])
+
+cbind("Regression Errors" = residuals(fit, type="regression"),
+      "ARIMA errors" = residuals(fit, type="innovation")) %>%
+  autoplot(facets=TRUE)
+
+checkresiduals(fit)
+```
+
+
+
+```{r}
+summary(fit)
+```
+
+
+
+```{r}
+cor(analysis_total_week[c(-1,-2)])
+```
+
+
+```{r}
+autoplot(ts[,c('O3','발병률')])
+```
+
+
+```{r}
+fit <- lm(발병률 ~ NO2, data = analysis_total_week[c(-1,-2)])
+par(mfrow = c(2,2))
+plot(fit)
+summary(fit)
+```
+
+
+
+
+
+
+
+

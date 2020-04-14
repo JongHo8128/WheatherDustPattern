@@ -5,7 +5,8 @@
 ## 지역별 시계열 시각화
 
 ```{r}
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 library(dplyr)
 
 ```
@@ -26,7 +27,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 전체')
 
-
+# 오존 전체
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 증가하다가 
+# 17년 6월 이후 감소하는 추세
 
 ```
 
@@ -45,7 +51,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 서울')
 
-
+# 오존 서울
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 증가하다가 
+# 17년 6월 이후 감소하다
+# 18년도부터 증가세
 
 ```
 
@@ -64,7 +76,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 부산')
 
-
+# 오존 부산
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 증가하다가 
+# 17년 6월 이후 감소하다
+# 18년도부터 증가세
 
 ```
 
@@ -83,7 +101,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 대구')
 
-
+# 오존 대구
+# 전체 패턴과 비슷
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 증가하다가 
+# 17년 6월 이후 감소세
 
 ```
 
@@ -103,7 +127,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 인천')
 
-
+# 오존 인천
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 소폭 증가하다가 
+# 17년 6월 이후 급격한 감소 이후
+# 18년 말 조금 증가
 
 ```
 
@@ -122,6 +152,14 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 광주')
 
+# 오존 광주
+# 인천과 추세가 비슷
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재(감소폭이 다른곳보다 큼)
+# 2016년부터 소폭 증가하다가 
+# 17년 6월 이후 급격한 감소 이후
+# 18년 말 조금 증가
 
 ```
 
@@ -141,6 +179,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 대전')
 
+# 오존 광주
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재(감소폭이 다른곳보다 큼)
+# 2016년 초기에는 증가하다가 
+# 16년 말부터 완만하게 감소
 
 ```
 
@@ -159,7 +203,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 울산')
 
-
+# 오존 울산
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 증가하다가 
+# 17년 6월 이후 감소하는 추세
+# 18년 초부터 일정함
 
 ```
 
@@ -178,7 +228,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 세종')
 
-
+# 오존 세종
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년 말 완만하게 증가
+# 17년 6월 이후 감소하는 추세
 
 ```
 
@@ -197,6 +252,15 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 제주')
 
+# 오존 제주
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 6월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 다른지역과는 다르게 갑자기 떨어지는 지점에서
+# 최저점 기록
+# 2016년 증가세
+# 17년 6월 이후 감소하는 추세를 보이다
+# 2018년 중순에 다시 증가세
 
 ```
 
@@ -215,7 +279,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 경기')
 
-
+# 오존 경기
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년 증가세를 보이다
+# 17년 이후 감소하는 추세
 
 ```
 
@@ -234,7 +303,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 강원')
 
-
+# 오존 강원
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년부터 일정하게 유지되다
+# 18년 이후 감소하는 추세
 
 ```
 
@@ -253,7 +327,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 충북')
 
-
+# 오존 충북
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년 증가세
+# 17년 말부터 감소하는 추세
 
 ```
 
@@ -272,7 +351,11 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 충남')
 
-
+# 오존 충남
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년이후 꾸준히 감소하는 추세
 
 ```
 
@@ -291,7 +374,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 전북')
 
-
+# 오존 전북
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년 증가하다
+# 2017년 말부터 감소세
 
 ```
 
@@ -310,7 +398,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 전남')
 
-
+# 오존 전남
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 제주와 비슷하게 떨어지는 지점에서 거의 최저점 형성
+# 2016년 감소하다 2017년부터 2017말까지 증가
+# 2017년 말이후 다시 감소세
 
 ```
 
@@ -329,7 +423,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 경북')
 
-
+# 오존 경북
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재
+# 2016년 증가하다
+# 2017년 중순이후 감소세
 
 ```
 
@@ -348,8 +447,200 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '오존 경남')
 
+# 오존 경남
+# 1년을 주기로 반복되는 패턴
+# 5월 최고점, 12월 최저점
+# 6월 갑자기 떨어지는 지점 존재(감소폭 큼)
+# 2016년 증가하다
+# 2017년 중순이후 감소세
 
 ```
 
 
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+인천 <- analysis_total %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+경기 <- analysis_total %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +
+coord_cartesian(ylim = c(0,0.08))+
+ggtitle("서울 인천 경기 비교")
+
+# 서울, 인천, 경기는 전체적으로 비슷한 패턴
+# 서울의 O3 농도가 다른곳에 비해 조금 높음
+
+```
+
+```{r}
+광주 <- analysis_total %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+대전 <- analysis_total %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("광주 대전")
+
+# 광주, 대전은 농도와 패턴 모두 비슷함
+
+```
+
+
+```{r}
+
+대구 <- analysis_total %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+충남 <- analysis_total %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+경남 <- analysis_total %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("대구 충남 경남 비교")
+
+# 충남, 경남은 농도와 패턴 모두 비슷하나
+# 대구는 농도가 다른 두지역에 비해 조금 높음
+
+```
+
+
+```{r}
+울산 <- analysis_total %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+부산 <- analysis_total %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+전남 <- analysis_total %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("울산 부산 전남 비교")
+
+# 울산, 부산은 농도와 패턴 모두 비슷하나
+# 전남은 O3 농도가 다른 두지역에 비해 낮음
+
+```
+
+
+```{r}
+충북 <- analysis_total %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+전북 <- analysis_total %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("충북 전북")
+
+# 충북이 전북에 비해 O3 농도가 높음
+
+```
+
+
+```{r}
+경북 <- analysis_total %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+강원 <- analysis_total %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("경북 강원 비교")
+
+# 경북, 강원은 농도와 패턴 모두 비슷함
+
+```
+
+
+```{r}
+세종 <- analysis_total %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+제주 <- analysis_total %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("세종 제주 비교")
+
+# 세종이 제주에 비해 진동의 폭이 크고
+# O3의 농도도 높음
+# 대도시의 경우 오존의 농도가 높은 것으로 파악됨
+
+```
 

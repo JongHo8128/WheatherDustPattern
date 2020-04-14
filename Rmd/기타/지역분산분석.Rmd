@@ -4,10 +4,12 @@ output: html_document
 ---
 
 ```{r}
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
 library(dplyr)
 library(multcomp)
-
+library(RColorBrewer)
+library(plotly)
+analysis_total <- analysis_total_Fixed
 analysis_total$시도 <- factor(analysis_total$시도)
 fit <- aov(formula=발병률~시도,data=analysis_total)
 summary(fit)
@@ -17,9 +19,15 @@ summary(fit)
 ```{r} 
 
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 발병률 비교"
+      )
 
-
+#시도별 발병률의 비교
+#차이는 유의미한 것으로 나타난다
+#유난이 높은 곳은 세종으로 나타났다, 나머지는 비슷한 양상을 보인다
+#세종에는 극단치 값을 보이는 것이 있다 이를 통해 특정 날짜의 세종에 발병률이 높아진 원인이 있을것 같다
 
 ```
 
@@ -39,7 +47,16 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 PM25 비교"
+      )
+
+#시도별 PM25 비교
+#차이는 유의미한 것으로 나타난다
+#PM25가 높은 곳으로는 충북과 전북, PM25가 낮은 곳으로는 제주,전남으로 나타났다
+#충북에서 극단치가 보인다
+#발병률이 높았던 세종은 PM25에서는 높은 순위를 보이지는 않고 6번째에 위치한다.
 ```
 
 
@@ -56,8 +73,16 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05),
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 PM10 비교"
+      )
 
+#시도별 PM10 비교
+#차이는 유의미한 것으로 나타난다
+#PM10이 높은 곳으로는 전북과 경기, PM25가 낮은 곳으로는 제주,전남으로 나타났다
+#PM10과 PM25는 비슷한 양상을 보인다
+#발병률이 최고로 높았던 세종은 PM10에서 또한 중간에 위치한다
 ```
 
 ```{r}
@@ -73,7 +98,15 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 평균기온(°C) 비교")
+
+#시도별 평균기온(°C) 비교
+#차이는 유의미한 것으로 나타난다
+#평균기온이 높은 곳은 제주, 평균기온이 낮은 곳은 강원으로 예상과 같은 결과가 나왔다
+#이상치 값은 존재하지 않는다
+#대체로 다른 변수들보다 집단간의 차이가 적은 편에 속한다
 
 ```
 
@@ -90,7 +123,15 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 평균 풍속(m/s) 비교")
+
+#시도별 평균 풍속(m/s) 비교
+#차이는 유의미한 것으로 나타난다
+#다른 변수들에 비해서 집단간의 차이가 뚜렷하다
+#섬인 제주가 바람이 많이 불며 이상치 또한 많이 존재한다
+
 ```
 
 
@@ -106,7 +147,15 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05),
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 평균 현지기압(hPa) 비교")
+
+#시도별 평균 현지기압(hPa) 비교
+#차이는 유의미한 것으로 나타난다
+#다른 변수들에 비해서 이상치는 적은 편이다
+#산이 많은 강원이 현지기압이 낮은 편이며 이상치 또한 많이 존재하는 편이다
+
 ```
 
 
@@ -127,7 +176,14 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+       main = "시도별 평균 일 최심신적설(cm) 비교")
+
+#시도별 평균 일 최심신적설(cm) 비교
+#차이는 유의미한 것으로 나타난다
+#0인 값이 대부분이며 광주에 이상치가 많이 존재한다
+#겨울에 춥고 눈이 많이 온다던 강원은 생각과 달리 낮은 편이다
 ```
 
 
@@ -142,9 +198,20 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+      main = "시도별 평균 일강수량(mm) 비교" )
+
+#시도별 평균 일강수량(mm) 비교
+#차이는 유의미한 것으로 나타난다
+#0인 값이 대부분이다
+#값의 편차가 큰 편이다
+#예상과 갖게 섬나라인 제주에서 강수량이 많다
 ```
 
+```{r}
+aggregate(formula=`일강수량(mm)`~시도,data=analysis_total,FUN=mean) %>% arrange(`일강수량(mm)`)
+```
 
 ```{r}
 fit <- aov(formula=`강수 계속시간(hr)`~시도,data=analysis_total)
@@ -153,9 +220,21 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), 
+      col=brewer.pal(17,'Pastel1'),
+       main = "시도별 평균 강수 계속시간(hr) 비교" )
+
+#시도별 평균 강수 계속시간(hr) 비교
+#차이는 유의미한 것으로 나타난다
+#0인 값이 대부분이다
+#값의 편차가 강수량에 비해 적은 편이다.
+#제주는 강수량이 많은 편에 비해 비가 오는 시간은 적은 편이다
+#지역간의 편차가 큰편이다
 ```
 
+```{r}
+aggregate(formula=`강수 계속시간(hr)`~시도,data=analysis_total,FUN=mean) %>% arrange(`강수 계속시간(hr)`)
+```
 
 ```{r}
 fit <- aov(formula=SO2~시도,data=analysis_total)
@@ -164,7 +243,16 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), col=brewer.pal(17,'Pastel1'),
+       main = "시도별 평균 SO2 비교"    )
+
+#시도별 평균 SO2 비교
+#차이는 유의미한 것으로 나타난다
+#지역간의 편차가 큰편이다
+#공장지대인 울산이 다른 지역에 비해 높은 양상을 보인다
+#울산과 붙어있는 부산, 수도권인 서울과 인천이 높은 양상을 보인다
+#미세먼지의 요소들간의 비슷한 양상을 보인다(SO2,NO2,O3,CO)
+
 ```
 
 ```{r}
@@ -179,7 +267,15 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), col=brewer.pal(17,'Pastel1') ,
+       main = "시도별 평균 CO 비교"   )
+
+#시도별 평균 CO 비교
+#차이는 유의미한 것으로 나타난다
+#지역간의 편차가 큰편이다
+#공장지대인 울산이 다른 지역에 비해 높은 양상을 보인다
+#울산과 붙어있는 부산, 수도권인 서울과 인천이 높은 양상을 보인다
+#미세먼지의 요소들간의 비슷한 양상을 보인다(SO2,NO2,O3,CO)
 ```
 
 
@@ -194,7 +290,14 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), col=brewer.pal(17,'Pastel1'),
+       main = "시도별 평균 O3 비교"   )
+#시도별 평균 O3 비교
+#차이는 유의미한 것으로 나타난다
+#지역간의 편차가 큰편이다
+#공장지대인 울산이 다른 지역에 비해 높은 양상을 보인다
+#울산과 붙어있는 부산, 수도권인 서울과 인천이 높은 양상을 보인다
+#미세먼지의 요소들간의 비슷한 양상을 보인다(SO2,NO2,O3,CO)
 ```
 
 
@@ -212,7 +315,14 @@ summary(fit)
 
 ```{r}
 tuk <- glht(fit, linfct=mcp(시도='Tukey'))
-plot( cld(tuk, level = .05), col='lightgray'   )
+plot( cld(tuk, level = .05), col=brewer.pal(17,'Pastel1') ,
+       main = "시도별 평균 NO2 비교"  )
+#시도별 평균 NO2 비교
+#차이는 유의미한 것으로 나타난다
+#지역간의 편차가 큰편이다
+#공장지대인 울산이 다른 지역에 비해 높은 양상을 보인다
+#울산과 붙어있는 부산, 수도권인 서울과 인천이 높은 양상을 보인다
+#미세먼지의 요소들간의 비슷한 양상을 보인다(SO2,NO2,O3,CO)
 ```
 
 
@@ -221,6 +331,27 @@ plot( cld(tuk, level = .05), col='lightgray'   )
 aggregate(formula=NO2~시도,data=analysis_total,FUN=mean) %>% arrange(NO2)
 ```
 
+```{r}
+fit <- manova(cbind(analysis_total$SO2,analysis_total$NO2,analysis_total$O3,analysis_total$CO)~analysis_total$시도)
+summary(fit)
 
+```
+```{r}
+library(ggpubr)
 
+ggboxplot(
+  analysis_total, x ="시도", y = c("SO2","NO2","CO","O3"), 
+  merge = TRUE, palette = "jco"
+  )
+
+#시각적인 결과와 위의 통계와는 달라보인다
+```
+```{r}
+ggboxplot(
+  analysis_total, x = "시도", y = c("일강수량(mm)", "강수 계속시간(hr)"), 
+  merge = TRUE, palette = "jco"
+  )
+
+#시각적인 결과와 위의 통계와는 달라보인다
+```
 

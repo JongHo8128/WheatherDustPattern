@@ -8,9 +8,9 @@ library(readr)
 #-----------------------------------------
 # 기상 데이터 가져오기
 #----------------------------------------
-df_2016 <- read_csv("../../lawdata/weather/기상관측_2016_Fixed.csv",locale=locale('ko',encoding='euc-kr'))
-df_2017 <- read_csv("../../lawdata/weather/기상관측_2017_Fixed.csv",locale=locale('ko',encoding='euc-kr'))
-df_2018 <- read_csv("../../lawdata/weather/기상관측_2018_Fixed.csv",locale=locale('ko',encoding='euc-kr'))
+df_2016 <- read_csv("../../lawdata/weather/기상관측_2016_NoFixed.csv",locale=locale('ko',encoding='euc-kr'))
+df_2017 <- read_csv("../../lawdata/weather/기상관측_2017_NoFixed.csv",locale=locale('ko',encoding='euc-kr'))
+df_2018 <- read_csv("../../lawdata/weather/기상관측_2018_NoFixed.csv",locale=locale('ko',encoding='euc-kr'))
 
 ```
 
@@ -19,7 +19,7 @@ df_2018 <- read_csv("../../lawdata/weather/기상관측_2018_Fixed.csv",locale=l
 df_concat <- rbind(df_2016,df_2017,df_2018)
 df_concat <- df_concat %>% filter(!is.na(시도))
 df_concat <- df_concat %>% arrange(시도,일시)
-df_concat
+
 ```
 
 
@@ -199,7 +199,7 @@ df_concat$일시 <- as.Date(df_concat$일시,tryFormats = c("%Y-%m-%d", "%Y/%m/%
 df_concat <- df_concat %>% arrange(시도,일시)
 df_concat
 
-#write.csv(df_concat,"refinedata/weather/weather_data.csv")
+write.csv(df_concat,"../../refinedata/weather/weather_data.csv")
 ```
 
 
@@ -209,7 +209,7 @@ df_concat
 #----------------------------------------
 
 weather_concat <- read_csv("../../refinedata/weather/weather_data.csv",locale=locale('ko',encoding='euc-kr'))
-dust_total <- read_csv("../../refinedata/weather/dust_data.csv",locale=locale('ko',encoding='euc-kr'))
+dust_total <- read_csv("../../refinedata/weather/dust_data.csv")
 
 ```
 
@@ -220,7 +220,7 @@ weather_concat  <- weather_concat  %>% dplyr::select(-X1)
 
 
 
-dust_total <- rename(dust_total,일시=측정일시,시도코드=code)
+
 
 #-----------------------------------------
 #미세먼지와 날씨 결합
@@ -230,9 +230,9 @@ weather_concat$일시 <- as.character(weather_concat$일시)
 weather_concat$일시 <- as.Date(weather_concat$일시,tryFormats = c("%Y-%m-%d", "%Y/%m/%d"))
 
 dust_total$일시 <- as.character(dust_total$일시)
-dust_total$일시 <- as.Date(dust_total$일시,tryFormats = c("%Y%m%d", "%Y/%m/%d"))
+dust_total$일시 <- as.Date(dust_total$일시,tryFormats = c("%Y-%m-%d", "%Y/%m/%d"))
 
-climate_total<- inner_join(weather_concat,dust_total,by=c("일시","시도코드","시도"))
+climate_total<- inner_join(weather_concat,dust_total,by=c("일시","시도"))
 
 climate_total
 ```
@@ -260,11 +260,6 @@ df_medical_total <- df_medical_total %>%  dplyr::select(-X1)
 
 df_medical_total <- df_medical_total %>%  dplyr::select(성별코드,연령대코드,시도코드,일시)
 
-
-
-#발생건수 카운트
-df_medical_total <- df_medical_total %>% group_by(성별코드,연령대코드,시도코드,일시) %>% summarize(발생건수 = n())
-
 #발생건수 카운트(성별,연령대 제외)
 df_medical_total <- df_medical_total %>% group_by(시도코드,일시) %>% summarize(발생건수 = n())
 
@@ -275,6 +270,9 @@ df_medical_total$일시 <- as.Date(df_medical_total$일시,tryFormats = c("%Y%m%
 analysis_total<- inner_join(df_medical_total,climate_total,by=c("일시","시도코드"))
 analysis_total
 ```
+
+
+
 
 ```{r include=FALSE}
 #-----------------------------------------
@@ -327,9 +325,8 @@ analysis_total$발병률 <- analysis_total$발생건수/analysis_total$인구수
 
 analysis_total_Fixed <- analysis_total 
 
-analysis_total_Fixed
-#write.csv(analysis_total_Fixed,"refinedata/analysis/analysis_total_Fixed.csv")
-#save(analysis_total_Fixed,file="refinedata/analysis/analysis_total_Fixed.rda")
+write.csv(analysis_total_Fixed,"../../refinedata/analysis/analysis_total_Fixed.csv")
+save(analysis_total_Fixed,file="../../refinedata/analysis/analysis_total_Fixed.rda")
 ```
 
 

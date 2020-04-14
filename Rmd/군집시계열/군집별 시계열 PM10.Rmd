@@ -1,0 +1,153 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+
+
+```{r}
+
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
+library(dplyr)
+
+
+```
+
+# 1 군집
+
+```{r}
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('경북', '강원'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 경북 강원(1군집)')
+
+```
+
+# 2 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('서울','인천','경기'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 서울 인천 경기(2군집)')
+
+
+```
+
+# 3 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('대구','경남','충남'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 대구 경남 충남(3군집)')
+
+```
+
+# 4 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('광주','대전'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 광주 대전(4군집)')
+
+```
+
+# 5 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('울산','부산', '전남'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 울산 부산 전남(5군집)')
+
+```
+
+# 6 군집
+
+```{r}
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('세종'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 세종(6군집)')
+
+```
+
+# 7 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('충북','전북'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 충북 전북(7군집)')
+
+```
+
+# 8 군집
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% filter(시도 %in% c('제주'))  %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+
+ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = 'PM10 제주(8군집)')
+
+```
+
+
+

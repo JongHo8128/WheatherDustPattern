@@ -1,0 +1,176 @@
+---
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(gvlma)
+library(FinCal)
+
+load('../../refinedata/analysis/analysis_total_Fixed.rda')
+
+```
+
+
+```{r}
+fit <- lm(발병률 ~ PM10, analysis_total_Fixed)
+summary(fit)
+```
+
+
+```{r}
+
+plot(발병률 ~ PM10, analysis_total_Fixed)
+abline(fit, col = 'red')
+
+```
+
+```{r}
+fit <- lm(발병률 ~ PM25, analysis_total_Fixed)
+summary(fit)
+```
+
+
+```{r}
+
+plot(발병률 ~ PM25,analysis_total_Fixed)
+abline(fit, col = 'red')
+
+```
+
+```{r}
+fit <- lm(발병률 ~ SO2, analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ SO2, analysis_total_Fixed)
+abline(fit <- lm(발병률 ~ SO2, analysis_total_Fixed), col = 'red')
+```
+
+
+```{r}
+fit <- lm(발병률 ~ NO2, analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ NO2, analysis_total_Fixed)
+abline(fit <- lm(발병률 ~ NO2, analysis_total_Fixed), col = 'red')
+```
+
+
+```{r}
+fit <- lm(발병률 ~ CO, analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ CO, analysis_total_Fixed)
+abline(fit <- lm(발병률 ~ CO, analysis_total_Fixed), col = 'red')
+```
+
+```{r}
+fit <- lm(발병률 ~ O3, analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ O3, analysis_total_Fixed)
+abline(fit <- lm(발병률 ~ O3, analysis_total_Fixed), col = 'red')
+```
+
+```{r}
+fit <- lm(발병률 ~ `평균기온(°C)`, analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ `평균기온(°C)`, analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+```{r}
+
+fit <- lm(발병률 ~ `평균 현지기압(hPa)`,analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ `평균 풍속(m/s)`, analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+```{r}
+
+fit <- lm(발병률 ~ `평균 현지기압(hPa)`,analysis_total_Fixed)
+summary(fit)
+```
+
+
+```{r}
+plot(발병률 ~ `평균 현지기압(hPa)`,analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+```{r}
+
+fit <- lm(발병률 ~ `일 최심신적설(cm)`,analysis_total_Fixed)
+summary(fit)
+```
+
+
+```{r}
+plot(발병률 ~ `일강수량(mm)`,analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+```{r}
+
+fit <- lm(발병률 ~ `일강수량(mm)`,analysis_total_Fixed)
+summary(fit)
+```
+
+```{r}
+plot(발병률 ~ `강수 계속시간(hr)`,analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+```{r}
+
+fit <- lm(발병률 ~ `강수 계속시간(hr)`,analysis_total_Fixed)
+summary(fit)
+```
+```{r}
+plot(발병률 ~ `일 최심신적설(cm)`,analysis_total_Fixed)
+abline(fit, col = 'red')
+```
+
+
+
+
+```{r}
+analysis_total_Fixed <-  as.data.frame(analysis_total_Fixed)
+
+analysis_total_Fixed$day <- weekdays(analysis_total_Fixed$일시)
+analysis_total_Fixed$weekend <- ifelse(analysis_total_Fixed$day %in% c('토요일','일요일'),'주말','평일')
+
+summary(group_by(analysis_total_Fixed,weekend))
+```
+
+```{r}
+table(analysis_total_Fixed$weekend)
+```
+
+
+```{r}
+t.test(formula = 발병률 ~ weekend, data = analysis_total_Fixed)
+
+```
+
+```{r}
+boxplot(formula = 발병률 ~ weekend, data = analysis_total_Fixed)
+```
+
+

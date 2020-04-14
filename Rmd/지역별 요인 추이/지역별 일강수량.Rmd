@@ -9,9 +9,10 @@ output: html_document
 
 ```{r}
 library(dplyr)
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -20,9 +21,14 @@ fit <- stl(ts, s.window = 'periodic')
 par(mfrow=c(1,1))
 
 plot(fit,
-     main = '일강수량')
+     main = '전체 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 전체
+# 7월 최고점, 1월 최저점
+# 평균적으로는 7월에 많이 오지만
+# 가장 많은 강수량을 기록한 날은 6월과 8월에 존재
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
 
 ```
 
@@ -30,7 +36,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '서울') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '서울') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -41,7 +47,11 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '서울 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 서울
+# 7월 최고점, 1월 최저점
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년 감소추세를 보이다 말부터 증가추세
+# 2018년 감소추세를 보이다 초부터 일정수준 유지
 
 ```
 
@@ -49,7 +59,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '부산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '부산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -60,7 +70,11 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '부산 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 부산
+# 7월 최고점, 1월 최저점
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년 중순부터 증가추세
+# 2018년 초부터 일정수준 유지
 
 ```
 
@@ -69,7 +83,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '대구') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '대구') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -80,7 +94,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '대구 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 대구
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년 중순부터 증가추세
+# 2018년 초부터 완만하게 증가
 
 ```
 
@@ -89,7 +108,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '인천') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '인천') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -100,7 +119,11 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '인천 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 인천
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년 중순부터 증가추세
 
 ```
 
@@ -108,7 +131,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '광주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '광주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -119,7 +142,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '광주 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 광주
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년 중순부터 증가추세
+# 2018년 중순부터 완만하게 증가
 
 ```
 
@@ -128,7 +156,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '대전') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '대전') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -139,7 +167,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '대전 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 대전
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2017년까지 감소추세를 보이다 2017년부터 증가추세
+# 2017년 초 살짝 감소했다가 중순이후 다시 증가
 
 ```
 
@@ -148,7 +181,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '울산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '울산') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -159,7 +192,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '울산 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 울산
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 다른 지역에 비해 비가 별로 내리지 않음
+# 2016년부터 완만한 증가, 말부터 감소추세
+# 2017년 중순부터 증가추세, 2018년 초부터 일정수준 유지
 
 ```
 
@@ -168,7 +207,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '세종') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '세종') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -179,8 +218,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '세종 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
-#
+# 일강수량 세종
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 완만한 감소, 말부터 증가추세
+# 2017년 일정수준 유지, 2018년 초부터 증가추세
+
 ```
 
 
@@ -188,7 +232,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '제주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '제주') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -199,7 +243,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '제주 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 제주
+# 9월 최고점, 11월 최저점
+# 9~10월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 다른 지역에 비해 10월에 많이 내림
+# 2016년부터 감소추세
+# 2017년 중순부터 증가추세, 2018년 말부터 일정수준 유지
 
 ```
 
@@ -208,7 +258,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '경기') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '경기') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -219,7 +269,11 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '경기 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 경기
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 감소, 말부터 증가추세
 
 ```
 
@@ -228,7 +282,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '강원') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '강원') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -239,7 +293,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '강원 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 강원
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 완만한 감소, 말부터 증가추세
+# 2017년 일정수준 유지, 중순부터 증가추세
 
 ```
 
@@ -248,7 +307,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '충북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '충북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -259,7 +318,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '충북 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 충북
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 완만한 감소, 말부터 증가추세
+# 2017년 일정수준 유지, 2018년 초부터 증가추세
+# 인접한 세종과 비슷한 패턴을 보임
 
 ```
 
@@ -268,7 +333,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '충남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '충남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -279,7 +344,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '충남 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 충남
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 완만한 감소, 말부터 증가추세
+# 2017년 일정수준 유지, 중순부터 증가추세
+# 인접한 세종, 충북과 비슷한 패턴을 보임
 
 ```
 
@@ -288,7 +359,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '전북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '전북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -299,7 +370,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '전북 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 전북
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 감소
+# 2017년 중순부터 증가추세
 
 ```
 
@@ -308,7 +384,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '전남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '전남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -319,7 +395,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '전남 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 전남
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년부터 감소
+# 2017년 중순부터 증가추세, 
+# 2018년 중순부터 일정수준 유지
 
 ```
 
@@ -328,7 +410,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '경북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '경북') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -339,7 +421,12 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '경북 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 경북
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년 일정수준 유지, 말부터 감소추세
+# 2017년 중순부터 증가추세
 
 ```
 
@@ -348,7 +435,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% filter(시도 == '경남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
+analysis_sido_day <- analysis_total_Fixed %>% filter(시도 == '경남') %>% group_by(일시) %>% summarise(`일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE))
 
 ts <- ts(analysis_sido_day[-1]$`일강수량(mm)`,frequency = 365, start = c(2016,1))
 
@@ -359,6 +446,196 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '경남 일강수량')
 
-#강수량은 여름에서 초가을까지최고조를 찍는 것으로 보인다.2017년까지 감소추세를 보이다 2017년 여름이후 증가추세를 보인다
+# 일강수량 경남
+# 7월 최고점, 1월 최저점
+# 7~9월 사이 집중적으로 비가 내림
+# 11월 ~ 1월에 강수량이 없는 날이 많음
+# 2016년 완만하게 감소, 말부터 감소폭이 커짐
+# 2017년 중순부터 증가추세
+# 2018년 초이후 완만하게 증가
+
+```
+
+
+
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total_Fixed %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+인천 <- analysis_total_Fixed %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+경기 <- analysis_total_Fixed %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +
+coord_cartesian(ylim = c(0,250))+
+ggtitle("서울 인천 경기 비교")
+
+# 서울, 인천, 경기 모두 전체적으로 비슷하나
+# 서울이 조금 많은 강수량을 보임
+
+```
+
+```{r}
+광주 <- analysis_total_Fixed %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+대전 <- analysis_total_Fixed %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,250))+ 
+ggtitle("광주 대전")
+
+# 광주, 대전은 전체적인 패턴이 비슷함
+
+```
+
+
+```{r}
+
+대구 <- analysis_total_Fixed %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+충남 <- analysis_total_Fixed %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+경남 <- analysis_total_Fixed %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  coord_cartesian(ylim = c(0,250))+ 
+ggtitle("대구 충남 경남 비교")
+
+# 대구, 충남, 경남은 전체적으로 패턴이 비슷
+# 경남이 조금 많은 강수량을 보이는 듯 함
+
+```
+
+
+```{r}
+울산 <- analysis_total_Fixed %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+부산 <- analysis_total_Fixed %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+전남 <- analysis_total_Fixed %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  coord_cartesian(ylim = c(0,250))+ 
+ggtitle("울산 부산 전남 비교")
+
+# 2016년 9월은 울산이, 2017년 9월은 부산의 강수량이 높았음
+# 전체적으로는 부산의 강수량이 높음
+
+```
+
+
+```{r}
+충북 <- analysis_total_Fixed %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+전북 <- analysis_total_Fixed %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  coord_cartesian(ylim = c(0,250))+ 
+ggtitle("충북 전북")
+
+# 충북, 전북은 패턴과 강수량 수준이 비슷함
+
+```
+
+
+```{r}
+경북 <- analysis_total_Fixed %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+강원 <- analysis_total_Fixed %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  coord_cartesian(ylim = c(0,250))+ 
+ggtitle("경북 강원 비교")
+
+# 경북, 강원은 패턴과 강수량 수준이 비슷함
+# 다른 지역에 비해 강수량이 적음
+
+```
+
+
+```{r}
+세종 <- analysis_total_Fixed %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+제주 <- analysis_total_Fixed %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(`일강수량(mm)`= mean(`일강수량(mm)`,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  coord_cartesian(ylim = c(0,250))+ 
+ggtitle("세종 제주 비교")
+
+# 세종, 제주도 딱히 특이한 패턴을 보이는것 같지는 않음
+# 전체적으로 비슷한 패턴을 보이는 것 같음
 
 ```

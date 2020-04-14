@@ -34,7 +34,7 @@ analysis_sido <- analysis_total %>% filter(substr(일시,1,7)=='2016-01'|substr(
 tempmap <- kormap1 
 
 analysis_sido$code <- as.character(analysis_sido$시도코드)
-analysis_sido$발생건수 <- as.character(analysis_sido$발생건수)
+
 
 
 ```
@@ -57,11 +57,8 @@ temp_map_join$region <- temp_map_join$code
 temp_map_join$SIDO_CD <- temp_map_join$code
 
 
-df_sido$name <- as.character(df_sido$name)
 
-analysis_sido$발생건수 <- as.numeric(analysis_sido$발생건수)
-analysis_sido$시도 <- analysis_sido$시도
-analysis_sido <- analysis_sido %>% arrange(desc(발생건수))
+
 
 
 
@@ -70,14 +67,15 @@ analysis_sido <- analysis_sido %>% arrange(desc(발생건수))
 ```{r}
 analysis_sido <- rename(analysis_sido , 평균기온=`평균기온(°C)`,평균풍속=`평균 풍속(m/s)`,평균현지기압=`평균 현지기압(hPa)`,`일최심신적설`=`일 최심신적설(cm)`,일강수량=`일강수량(mm)`,강수계속시간=`강수 계속시간(hr)`)
 ```
-```{r include=FALSE}
-changeCode(analysis_sido)
-changeCode(kormap1)
-```
+
 
 # 만명당 호흡기 질환 발병률
 ```{r}
+
+par(mfrow=c(2,2))
 ggChoropleth(data=analysis_sido, 
+             
+             digits = 3,
              
              aes(fill=발병률, 
                  
@@ -93,6 +91,10 @@ ggChoropleth(data=analysis_sido,
              interactive=TRUE)
 
 
+```
+
+```{r include=FALSE}
+analysis_sido
 ```
 # 명당 호흡기 질환 발생율
 
@@ -354,3 +356,112 @@ ggChoropleth(data=analysis_sido,
 
 ```
 
+```{r fig.height=4.72, fig.width = 4.72, fig.show = 'hold'}
+
+par(mfrow=c(2,1))
+ggChoropleth(data=analysis_sido, 
+             
+             digits = 3,
+             
+             aes(fill=PM10, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+ggChoropleth(data=analysis_sido, 
+             
+             aes(fill=PM25, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+```
+
+```{r fig.height=4.72, fig.width = 4.72, fig.show = 'hold'}
+
+par(mfrow=c(2,2))
+ggChoropleth(data=analysis_sido, 
+             
+             digits = 3,
+             
+             aes(fill=CO, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+ggChoropleth(data=analysis_sido, 
+             
+              digits = 3,
+             
+             aes(fill=NO2, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+ggChoropleth(data=analysis_sido, 
+             
+              digits = 3,
+             
+             aes(fill=O3, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+ggChoropleth(data=analysis_sido, 
+             
+              digits = 3,
+             
+             aes(fill=SO2, 
+                 
+                 map_id=code,
+                 
+                 tooltip=시도
+                 
+                 
+                 ),
+             #palette = '',
+             map=temp_map_join, 
+             
+             interactive=F)
+
+```

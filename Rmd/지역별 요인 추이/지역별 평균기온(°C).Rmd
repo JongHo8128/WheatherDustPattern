@@ -5,7 +5,8 @@
 ## 지역별 시계열 시각화
 
 ```{r}
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 library(dplyr)
 
 ```
@@ -27,7 +28,10 @@ plot(fit,
      main = '`평균기온(°C)` 전체')
 
 
-
+#평균기온의 계절적 패턴은 여름에 높다가 겨울에 낮다
+#전체의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 서울
@@ -46,7 +50,9 @@ plot(fit,
      main = '`평균기온(°C)` 서울')
 
 
-
+#서울의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 부산
@@ -64,7 +70,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 부산')
 
-
+#부산의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 대구
@@ -82,7 +90,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 대구')
 
-
+#대구의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 
@@ -102,7 +112,9 @@ plot(fit,
      main = '`평균기온(°C)` 인천')
 
 
-
+#인천의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 광주
@@ -121,7 +133,9 @@ plot(fit,
      main = '`평균기온(°C)` 광주')
 
 
-
+#광주의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 미세히 증가한다
 ```
 
 
@@ -141,7 +155,9 @@ plot(fit,
      main = '`평균기온(°C)` 대전')
 
 
-
+#대전의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 울산
@@ -160,7 +176,9 @@ plot(fit,
      main = '`평균기온(°C)` 울산')
 
 
-
+#울산의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 세종
@@ -179,7 +197,9 @@ plot(fit,
      main = '`평균기온(°C)` 세종')
 
 
-
+#세종의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 제주
@@ -197,7 +217,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 제주')
 
-
+#제주의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 
 ```
 
@@ -217,7 +239,9 @@ plot(fit,
      main = '`평균기온(°C)` 경기')
 
 
-
+#경기의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 강원
@@ -236,7 +260,9 @@ plot(fit,
      main = '`평균기온(°C)` 강원')
 
 
-
+#강원의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 충북
@@ -255,7 +281,9 @@ plot(fit,
      main = '`평균기온(°C)` 충북')
 
 
-
+#충북의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 충남
@@ -273,7 +301,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 충남')
 
-
+#충남의 연도 패턴은 미세히 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 
 ```
 
@@ -292,6 +322,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 전북')
 
+#전북의 연도 패턴은 미세히 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 
 ```
 
@@ -310,7 +343,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 전남')
 
-
+#전남의 연도 패턴은 미세히 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 경북
@@ -328,7 +363,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '`평균기온(°C)` 경북')
 
-
+#경북의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
 ```
 
 # `평균기온(°C)` 경남
@@ -347,6 +384,188 @@ plot(fit,
      main = '`평균기온(°C)` 경남')
 
 
+#경남의 연도 패턴은 증가하다
+#2017년 이후 감소하다
+#2017년 가을 이후 다시 증가한다
+```
+
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+인천 <- analysis_total %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+경기 <- analysis_total %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +
+coord_cartesian(ylim = c(-20,40))+
+ggtitle("서울 인천 경기 비교")
+
+#서울 인천 경기는 평균기온이 비슷하다
 
 ```
 
+```{r}
+광주 <- analysis_total %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+대전 <- analysis_total %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("광주 대전")
+
+#광주 대전은  평균기온이 비슷하다
+```
+
+
+```{r}
+
+대구 <- analysis_total %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+충남 <- analysis_total %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+경남 <- analysis_total %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("대구 충남 경남 비교")
+
+
+#대구 충남 경남은 평균기온이 비슷하다
+```
+
+
+```{r}
+울산 <- analysis_total %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+부산 <- analysis_total %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+전남 <- analysis_total %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("울산 부산 전남 비교")
+
+#울산 부산 전남는 평균기온이 비슷하다
+
+```
+
+
+```{r}
+충북 <- analysis_total %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+전북 <- analysis_total %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("충북 전북")
+
+#충북 전북은 평균기온이 비슷하다
+```
+
+
+```{r}
+경북 <- analysis_total %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+강원 <- analysis_total %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("경북 강원 비교")
+
+#경북 강원은 평균기온이 비슷하다
+#산에 있는 곳이 많아 온도가 낮은 편이다
+```
+
+
+```{r}
+세종 <- analysis_total %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+제주 <- analysis_total %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(`평균기온(°C)`= mean(`평균기온(°C)`,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(-20,40))+ 
+ggtitle("세종 제주 비교")
+
+#세종 제주는 평균기온이 비슷하다
+#제주는 폭이 작고 온도가 대체로 높은 편이다
+#위도가 낮아 따듯한 지역이다
+```

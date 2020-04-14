@@ -1,0 +1,75 @@
+---
+title: "조건의사결정나무"
+output: html_document
+---
+
+```{r}
+library(rpart)
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total <- analysis_total_Fixed
+temp <- analysis_total[c("발병률","시도","SO2","NO2","CO","O3",
+                                   "평균기온(°C)","평균 풍속(m/s)",
+                                   "평균 현지기압(hPa)","일 최심신적설(cm)",
+                                   "일강수량(mm)","강수 계속시간(hr)")]
+
+
+
+```
+
+```{r}
+dtree <- rpart(
+  formula = 시도 ~ ., 
+  data = temp, 
+  method = 'class', 
+  parms = list(split = 'information')
+)
+
+
+
+dtree 
+```
+
+
+
+```{r}
+dtree$cptable
+
+```
+
+
+```{r}
+dtree$cptable
+```
+
+
+```{r}
+plotcp(dtree) # 키운 나무(모형)를 전달
+```
+
+
+```{r}
+dtree.pruned <- prune(dtree, cp = 0.01)
+dtree.pruned
+```
+
+
+
+
+```{r}
+library(rpart.plot)
+
+
+prp(
+  dtree.pruned,       # 가지치기를 끝낸 나무
+  type = 2,           # 출력 나무의 모양을 결정
+  extra = 104,        # 출력 나무의 노드안에 출력값을 결정
+  fallen.leaves = T,  # 터미널 노드 출력여부 결정
+  main = '- Traditional Decisition Tree -'
+)
+```
+
+
+
+
+
+

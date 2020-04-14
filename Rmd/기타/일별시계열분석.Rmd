@@ -7,6 +7,7 @@
 ```{r}
 load("../../refinedata/analysis/analysis_total_Fixed.rda")
 library(dplyr)
+library(FinCal)
 analysis_total <- analysis_total_Fixed
 
 ```
@@ -30,7 +31,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '평균기온(°C)')
 
-#평균기온/여름에는 최고값찍은후 감소/2016년까지 완만한 증가 추세이다가  2017년도에 급격히감소하다 2018년도에 서서히 증가
+#평균기온
+#여름에는 최고값찍은후 감소 볼록 솟은 형태이다
+#2016년까지 완만한 증가 추세이다가  2017년도에 급격히감소하다 2018년도에 서서히 증가
 
 
 ```
@@ -50,8 +53,10 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '평균 풍속')
 
+#평균풍속
 #바람풍속은 일정한 패턴이 없는 것으로 보인다
-#2018년도에 급격히 감소
+#2016년에서 2017년 일정하다가 2018년도에 급격히 감소
+
 
 ```
 
@@ -140,7 +145,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(SO2 = mean(SO2,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(SO2 = geometric.mean(SO2))
 
 ts <- ts(analysis_sido_day[-1]$SO2,frequency = 365, start = c(2016,1))
 
@@ -161,7 +166,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(O3 = mean(O3,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(O3 = geometric.mean(O3))
 
 ts <- ts(analysis_sido_day[-1]$O3,frequency = 365, start = c(2016,1))
 
@@ -176,11 +181,30 @@ plot(fit,
 
 ```
 
+# 일산화탄소
+
+```{r}
+
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(CO = geometric.mean(CO))
+
+ts <- ts(analysis_sido_day[-1]$CO,frequency = 365, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit,
+     main = '일산화탄소')
+
+#이산화 질소는 겨울철에 높은 수치를 찍으며 변동인 큰편이다. 연도별로는 일정해 보인다
+
+```
+
 # 이산화질소
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(NO2 = mean(NO2,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(NO2 = geometric.mean(NO2))
 
 ts <- ts(analysis_sido_day[-1]$NO2,frequency = 365, start = c(2016,1))
 
@@ -199,7 +223,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM10 = mean(PM10,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM10 = geometric.mean(PM10))
 
 ts <- ts(analysis_sido_day[-1]$PM10,frequency = 365, start = c(2016,1))
 
@@ -218,7 +242,7 @@ plot(fit,
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM25 = mean(PM25,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(PM25 = geometric.mean(PM25))
 
 ts <- ts(analysis_sido_day[-1]$PM25,frequency = 365, start = c(2016,1))
 
@@ -253,13 +277,13 @@ plot(fit,
 #2017년 급증하는 것으로 보입니다.
 
 ```
-# 발생건수
+# 발병율
 
 ```{r}
 
-analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(발병율 = sum(발생건수,na.rm=TRUE)/sum(인구수,na.rm=TRUE))
+analysis_sido_day <- analysis_total %>% group_by(일시) %>% summarise(발병률 = sum(발병률))
 
-ts <- ts(analysis_sido_day[-1]$발병율,frequency = 365, start = c(2016,1))
+ts <- ts(analysis_sido_day[-1]$발병률,frequency = 365, start = c(2016,1))
 
 
 fit <- stl(ts, s.window = 'periodic')

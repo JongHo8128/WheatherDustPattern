@@ -5,54 +5,31 @@ output: html_document
 
 ```{r}
 library(readxl)
-NewsResult <- read_excel("../../refinedata/news/NewsResult_20160101-20181231.xlsx")
-content <- c()
+NewsResult_medical <- read_excel("../../refinedata/news/medicalnews.xlsx")
 
-for( i in 1:nrow(NewsResult)){
-   content[length(content)+1]<-NewsResult$본문[i]
+NewsResult_dust <- read_excel("../../refinedata/news/dustnews.xlsx")
+
+content_medical <- c()
+
+content_dust <- c()
+
+for( i in 1:nrow(NewsResult_dust)){
+   content_dust[length(content_dust)+1]<-NewsResult_dust$본문[i]
+}
+
+for( i in 1:nrow(NewsResult_medical)){
+   content_medical[length(content_medical)+1]<-NewsResult_medical$본문[i]
 }
 
 
-library(tm)
-library(SnowballC)
-
-corpus <- Corpus(VectorSource(content))
-
-corpus <- tm_map(corpus, content_transformer(tolower)) 
-corpus <- tm_map(corpus, removeNumbers) 
-corpus <- tm_map(corpus, removeWords, stopwords('english')) 
-corpus <- tm_map(corpus, removePunctuation) 
-corpus <- tm_map(corpus, stripWhitespace)
-
-dtm <- DocumentTermMatrix(corpus)
-
-inspect(dtm)
-
-m <- as.matrix(dtm)
-
-v <- sort(colSums(m), decreasing = T)
-
-d <- data.frame( word = names(v), freq = v) 
-
-
 ```
 
-```{r}
 
-library(wordcloud2)
-library(htmlwidgets)
-library(htmltools)
-library(jsonlite)
-library(yaml)
-library(base64enc)
-
-# wordcloud2(d[1:100,])
-
-```
 
 ```{r include=FALSE}
 library(KoNLP)
 library(stringr)
+library(dplyr)
 
 # 시스템 사전 로딩(loading)
 # useSystemDic()
@@ -63,46 +40,70 @@ useSejongDic()
 # NIA 사전 로딩(loading)
 # useNIADic()
 
-set.seed(1234)
 
-content <- str_replace_all(content, "\\W", " ")
 
-content
+content_medical <- str_replace_all(content_medical, "\\W", " ")
 
-nouns <- extractNoun(content)
 
-wordcount <- table(unlist(nouns))
+
+nouns_medical <- extractNoun(content_medical)
+
+
+
+wordcount_medical <- table(unlist(nouns_medical))
+
+
      
-df_word <- as.data.frame(wordcount, stringsAsFactors = F)
+df_word_medical <- as.data.frame(wordcount_medical, stringsAsFactors = F)
 
-library(dplyr)
 
-df_word <- rename(df_word,
+
+
+
+df_word_medical <- rename(df_word_medical,
                   word = Var1,
                   freq = Freq)
 
-df_word <- filter(df_word, nchar(word) >= 2)
+df_word_medical <- filter(df_word_medical, nchar(word) >= 2)
 
-df_word <- df_word %>% arrange(desc(freq))
+df_word_medical <- df_word_medical %>% arrange(desc(freq))
+
+
 
 ```
 
+```{r include=FALSE}
+content_dust <- str_replace_all(content_dust, "\\W", " ")
 
+nouns_dust <- extractNoun(content_dust)
+
+wordcount_dust <- table(unlist(nouns_dust))
+
+df_word_dust <- as.data.frame(wordcount_dust, stringsAsFactors = F)
+
+df_word_dust <- rename(df_word_dust,
+                  word = Var1,
+                  freq = Freq)
+
+df_word_dust <- filter(df_word_dust, nchar(word) >= 2)
+
+df_word_dust <- df_word_dust %>% arrange(desc(freq))
+```
 
 ```{r}
 
-library(wordcloud2)
-library(htmlwidgets)
-library(htmltools)
-library(jsonlite)
-library(yaml)
-library(base64enc)
 
-figPath = system.file("examples/4.png",package = "wordcloud2")
+figPath = system.file("examples/6.png",package = "wordcloud2")
 
-wordcloud2(df_word[], figPath = figPath ,size=0.6)
+wordcloud2(df_word_medical, figPath = figPath ,size=0.5)
 
 
 
+```
+
+```{r}
+figPath = system.file("examples/5.png",package = "wordcloud2")
+
+wordcloud2(df_word_dust, figPath = figPath ,size=1.3)
 ```
 

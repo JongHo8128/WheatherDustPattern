@@ -7,7 +7,7 @@ output: html_document
 load("../../../refinedata/analysis/analysis_total_Fixed.rda")
 library(dplyr)
 
-analysis_total_Fixed <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2017-12'|substr(일시,1,7)=='2018-01'|substr(일시,1,7)=='2018-02')
+analysis_total_Fixed <- analysis_total_Fixed %>% filter(substr(일시,1,7)=='2018-03'|substr(일시,1,7)=='2018-04'|substr(일시,1,7)=='2018-05')
 
 analysis_total_Fixed$`최다풍향(16방위)` <- as.factor(analysis_total_Fixed$`최다풍향(16방위)`)
 

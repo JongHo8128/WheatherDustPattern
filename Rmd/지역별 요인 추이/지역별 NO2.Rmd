@@ -5,7 +5,8 @@
 ## 지역별 시계열 시각화
 
 ```{r}
-load("../../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 library(dplyr)
 
 ```
@@ -26,7 +27,13 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 전체')
 
+#이산화 질소의 계절적 패턴은 12월 최고치를 찍으며
+#7월에 최저치를 기록 합니다.
+#일산화 탄소에 비해 그 폭은 작은 편이다
 
+#지역 전반적으로 봤을때 연도별 트랜드는 2016년 말까지 일정하다
+#2016년 말이후 감소하다
+#2018년 초부터 서서히  증가한다
 
 ```
 
@@ -46,6 +53,10 @@ plot(fit,
      main = '이산화질소 서울')
 
 
+#서울을 봤을때 연도별 트랜드는 2016년 일정하다
+#2016년 중순이후 감소하다
+#2018년 중순이후 일정하다
+
 
 ```
 
@@ -64,7 +75,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 부산')
 
-
+#부산을 봤을때 연도별 트랜드는 2016년부터 감소하다
+#2018년 봄이후 소폭 증가한다
 
 ```
 
@@ -83,7 +95,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 대구')
 
-
+#대구를 봤을때 연도별 트랜드는 2016년부터 증가하다
+#2017년 중순이후 감소하다 2018년 봄이후 증가한다
 
 ```
 
@@ -103,8 +116,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 인천')
 
-
-
+#대구를 봤을때 연도별 트랜드는 2016년부터 감소하다
+#2017년이후 정체기를 거쳐 급증한다
 ```
 
 # 이산화 질소 광주
@@ -122,6 +135,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 광주')
 
+#광주를 봤을때 연도별 트랜드는 2017년까지 일정하다 
+#2017년 중순까지 미세증가하다 
+#2018년까지 급락하고 다시 증가한다
 
 
 ```
@@ -142,6 +158,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 대전')
 
+#대전을 봤을때 연도별 트랜드는 증가하다 2016년 겨울부터 미세히 감소하다
+#2018년부터 다시 증가한다
 
 
 ```
@@ -161,6 +179,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 울산')
 
+#울산을 봤을때 연도별 트랜드는 지속적인 감소를 보인다
 
 
 ```
@@ -180,6 +199,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 세종')
 
+#세종을 봤을때 연도별 트랜드는 2016년 여름까지 미세히 증가하다
+#2018년 초까지 감소하다
+#다시 증가한다
 
 
 ```
@@ -199,8 +221,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 제주')
 
-
-
+#제주를 볼때 연도별 트랜드는 꾸준히 감소하다
+#2018년 봄이후부터 다시 증가한다
 ```
 
 # 이산화 질소 경기
@@ -218,7 +240,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 경기')
 
-
+#경기를 볼때 연도별 트랜드는 2016년 여름까지 미세히 증가하다
+#2018년 봄까지 감소하고
+#다시 증가한다
 
 ```
 
@@ -237,6 +261,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 강원')
 
+#강원을 볼때 연도별 트랜드는 꾸준히 감소하다 2017년 부터
+#정체기를 가지다가
+#다시 감소한다
 
 
 ```
@@ -256,7 +283,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 충북')
 
-
+#충북을 볼때 연도별 트랜드는 일정하다가 2018년 초부터 
+#증가한다
 
 ```
 
@@ -275,7 +303,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 충남')
 
-
+#충남을 볼때 연도별 트랜드는 2016년 여름까지 증가하다
+#2018년 봄까지 감소하고
+#다시 증가한다
 
 ```
 
@@ -294,6 +324,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 전북')
 
+#전북을 볼때 연도별 트랜드는 미세히 감소하다
+#2016년 겨울부터 감소의 폭이 커진다
 
 
 ```
@@ -313,7 +345,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 전남')
 
-
+#전남을 볼때 연도별 트랜드는 미세히 증가하다
+#2016년 여름부터 감소하다 2018년 초부터
+#일정하다
 
 ```
 
@@ -332,7 +366,9 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 경북')
 
-
+#경북을 볼때 연도별 트랜드는 감소하다
+#2017년 초부터 미세하게 증가후 2017년 여름이후 다시감소하다
+#2018년 초이후 다시 미세히 증가한다
 
 ```
 
@@ -351,7 +387,187 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '이산화질소 경남')
 
+#경남을 볼때 연도별 트랜드는 미세히 감소하다
+#2017년 봄이후 감소후
+#2018년 봄이후 다시 증가한다
+
+```
+
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+인천 <- analysis_total %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+경기 <- analysis_total %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +
+coord_cartesian(ylim = c(0,0.08))+
+ggtitle("서울 인천 경기 비교")
+
+#서울,경기 ,인천은 서울>경기>인천 순으로 NO2 순이다
+#수도권 지역이 다른 지역보다 NO2가 높은 편이다
+```
+
+```{r}
+광주 <- analysis_total %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+대전 <- analysis_total %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("광주 대전")
+
+#광주 대전은 비슷한 추이를 보인다
+```
+
+
+```{r}
+
+대구 <- analysis_total %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+충남 <- analysis_total %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+경남 <- analysis_total %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("대구 충남 경남 비교")
+
+#대구,충남,경남은 비슷한 추이를 보인다
+
+```
+
+
+```{r}
+울산 <- analysis_total %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+부산 <- analysis_total %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+전남 <- analysis_total %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("울산 부산 전남 비교")
+
+#붙어있는 울산 부산이 비슷한 추세를 보이고 상대적으로 전남이 조금 낮은 추세이다
 
 
 ```
 
+
+```{r}
+충북 <- analysis_total %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+전북 <- analysis_total %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("충북 전북")
+
+#추북과 전북은 비슷한 추세를 보인다
+```
+
+
+```{r}
+경북 <- analysis_total %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+강원 <- analysis_total %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("경북 강원 비교")
+
+#경북과 강원은  비슷한 추세를 보인다
+```
+
+
+```{r}
+세종 <- analysis_total %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+제주 <- analysis_total %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(NO2= mean(NO2,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() +  
+coord_cartesian(ylim = c(0,0.08))+ 
+ggtitle("세종 제주 비교")
+
+#섬에 있는 제주에 비해 세종에 상대적으로 높은 추세를 보인다
+```

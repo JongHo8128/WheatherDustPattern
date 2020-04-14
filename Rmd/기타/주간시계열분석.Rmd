@@ -5,8 +5,10 @@
 ## 일별 시계열 시각화
 
 ```{r}
-load("../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total <- analysis_total_Fixed
 library(dplyr)
+library(FinCal)
 analysis_day <- analysis_total %>% group_by(substr(일시,1,10)) %>% summarise(`평균기온(°C)` = mean(`평균기온(°C)`,na.rm=TRUE),
                                                              `최저기온(°C)` = mean(`최저기온(°C)`,na.rm=TRUE),
                                                              `최고기온(°C)` = mean(`최고기온(°C)`,na.rm=TRUE),
@@ -15,13 +17,14 @@ analysis_day <- analysis_total %>% group_by(substr(일시,1,10)) %>% summarise(`
                                                              `일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE),
                                                              `일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE),
                                                              `강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE),
-                                                             SO2 = mean(SO2,na.rm=TRUE),
-                                                             CO = mean(CO,na.rm=TRUE),
-                                                             O3 = mean(O3,na.rm=TRUE),
-                                                             NO2 = mean(NO2,na.rm=TRUE),
-                                                             PM10 = mean(PM10,na.rm=TRUE),
-                                                             PM25 = mean(PM25,na.rm=TRUE),
-                                                             발생건수 = sum(발생건수))
+                                                             SO2 = geometric.mean(SO2),
+                                                             CO = geometric.mean(CO),
+                                                             O3 = geometric.mean(O3),
+                                                             NO2 = geometric.mean(NO2),
+                                                             PM10 = geometric.mean(PM10),
+                                                             PM25 = geometric.mean(PM25),
+                                                             발생건수 = sum(발생건수),
+                                                             발병률 = sum(발병률))
 
 
 
@@ -38,13 +41,14 @@ original_summarise <- new %>% summarise(`평균기온(°C)` = mean(`평균기온
                                                              `일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE),
                                                              `일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE),
                                                              `강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE),
-                                                             SO2 = mean(SO2,na.rm=TRUE),
-                                                             CO = mean(CO,na.rm=TRUE),
-                                                             O3 = mean(O3,na.rm=TRUE),
-                                                             NO2 = mean(NO2,na.rm=TRUE),
-                                                             PM10 = mean(PM10,na.rm=TRUE),
-                                                             PM25 = mean(PM25,na.rm=TRUE),
-                                                             발생건수 = sum(발생건수))
+                                                             SO2 = geometric.mean(SO2),
+                                                             CO = geometric.mean(CO),
+                                                             O3 = geometric.mean(O3),
+                                                             NO2 = geometric.mean(NO2),
+                                                             PM10 = geometric.mean(PM10),
+                                                             PM25 = geometric.mean(PM25),
+                                                             발생건수 = sum(발생건수),
+                                                             발병률 = sum(발병률))
   
   
 
@@ -61,13 +65,14 @@ while(collength>0){
                                                              `일 최심신적설(cm)` = mean(`일 최심신적설(cm)`,na.rm=TRUE),
                                                              `일강수량(mm)` = mean(`일강수량(mm)`,na.rm=TRUE),
                                                              `강수 계속시간(hr)` = mean(`강수 계속시간(hr)`,na.rm=TRUE),
-                                                             SO2 = mean(SO2,na.rm=TRUE),
-                                                             CO = mean(CO,na.rm=TRUE),
-                                                             O3 = mean(O3,na.rm=TRUE),
-                                                             NO2 = mean(NO2,na.rm=TRUE),
-                                                             PM10 = mean(PM10,na.rm=TRUE),
-                                                             PM25 = mean(PM25,na.rm=TRUE),
-                                                             발생건수 = sum(발생건수))
+                                                             SO2 = geometric.mean(SO2),
+                                                             CO = geometric.mean(CO),
+                                                             O3 = geometric.mean(O3),
+                                                             NO2 = geometric.mean(NO2),
+                                                             PM10 = geometric.mean(PM10),
+                                                             PM25 = geometric.mean(PM25),
+                                                             발생건수 = sum(발생건수),
+                                                             발병률 = sum(발병률))
 
   original_summarise <- rbind(original_summarise,new_summarise)
   
@@ -286,11 +291,31 @@ plot(fit)
 
 ```
 
+# 발생건수
+
 ```{r}
 
 
 
 ts <- ts(analysis_week$발생건수,frequency = 52, start = c(2016,1))
+
+fit <- stl(ts, s.window = 'periodic')
+
+par(mfrow=c(1,1))
+
+plot(fit)
+
+#초미세먼지 농도는 늦봄시절에 최고치를 찍는 걸로 보인다. 편차는 커보인 것으로 보인다. 미세먼지농도보다 조금 앞선 최고치를 이른다
+
+
+```
+
+# 발병률
+```{r}
+
+
+
+  ts <- ts(analysis_week$발병률,frequency = 52, start = c(2016,1))
 
 fit <- stl(ts, s.window = 'periodic')
 

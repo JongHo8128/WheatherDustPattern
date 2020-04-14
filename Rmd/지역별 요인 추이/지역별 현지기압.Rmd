@@ -9,7 +9,8 @@ output: html_document
 
 ```{r}
 library(dplyr)
-load("../refinedata/analysis/analysis_total.rda")
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+analysis_total<-analysis_total_Fixed
 
 analysis_sido_day <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
 
@@ -22,9 +23,10 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '서울 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#모든 지역의 평균현지기압은 계절적 요인을 가집니다
+#겨울에 최고치를 찍으며 여름에 최저치를 찍습니다
+#서울은 2016년까지 감소추세를 가지다가 서서히 증가합니다
 ```
 
 # 부산 평균 현지기압(hPa)
@@ -44,9 +46,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '부산 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#부산은 2016년까지 감소추세를 가지다가 서서히 증가합니다
 ```
 
 
@@ -65,9 +66,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '대구 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#대구는 2016년까지 감소추세를 가지다가 서서히 증가합니다
 ```
 
 
@@ -86,9 +86,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '인천 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
-
+#인천은 2016년부터 2017년 하반기 까지 일정하다가 2018년부터 상승하는 추세입니다
 ```
 
 # 광주 평균 현지기압(hPa)
@@ -106,9 +104,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '광주 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
-
+#광주는 2016년까지 감소추세를 가지다가 서서히 증가하다 2017년부터 2018년 정체를 하다 다시 증가합니다
 ```
 
 
@@ -127,8 +123,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '대전 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#대전은 2016년까지 감소추세를 가지다가 서서히 증가하다 2017년부터 2018년 정체를 하다 다시 증가합니다
 
 ```
 
@@ -148,9 +143,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '울산 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
-
+#울산은 2016년 말까지 감소하다 2017년부터 서서히 증가하는 추세이다
 ```
 
 
@@ -169,9 +162,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '세종 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#세종은 2016년까지 감소추세를 가지다가 서서히 증가하다 2017년부터 2018년 정체를 하다 다시 증가합니다
 ```
 
 
@@ -190,8 +182,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '제주 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#제주는 2016년까지 감소추세를 가지다가 서서히 증가하다 2017년부터 2018년 감소 하다 다시 증가합니다
 
 ```
 
@@ -211,8 +202,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '경기 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#경기는 2016년까지 감소추세를 가지다가 서서히 증가합니다
 
 ```
 
@@ -232,8 +222,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '강원 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#강원은 서서히 증가하는 추세입니다.
 
 ```
 
@@ -253,8 +242,7 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '충북 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#충북은 2016년까지 감소추세를 가지다가 서서히 증가합니다
 
 ```
 
@@ -274,9 +262,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '충남 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#충남은 2016년까지 감소추세를 가지다가 서서히 증가합니다
 ```
 
 
@@ -295,9 +282,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '전북 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#충남은 2016년까지 감소추세를 가지다가  2017년 중순부터 2017년 말까지 정체하다 서서히 증가합니다
 ```
 
 
@@ -316,9 +302,8 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '전남 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
 
+#전남은 2016년까지 감소추세를 가지다가  2017년 중순부터 2017년 말까지 정체하다 서서히 증가합니다
 ```
 
 
@@ -336,9 +321,7 @@ par(mfrow=c(1,1))
 
 plot(fit,
      main = '경북 평균 현지기압(hPa)')
-
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#경북은 2016년까지 감소추세를 가지다가 서서히 증가합니다
 
 ```
 
@@ -358,7 +341,196 @@ par(mfrow=c(1,1))
 plot(fit,
      main = '경남 평균 현지기압(hPa)')
 
-#평균 현지기압(hPa)은 겨울때 최고점을 찍으며 연도가 흐를수록 올라가는 추세이다
-#2016년도 까지는 감소추세이다 2017년도부타 증가추세를 보인다
+#경남은 2016년까지 감소추세를 가지다가 서서히 증가합니다
+```
+
+```{r}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+
+서울 <- analysis_total %>% filter( 시도 == '서울') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+인천 <- analysis_total %>% filter( 시도 == '인천') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+경기 <- analysis_total %>% filter( 시도 == '경기') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+인천<-인천[-1]
+경기<-경기[-1]
+
+
+data <- cbind(서울,인천,경기)
+colnames(data)[2:4]<-c("서울","인천","경기")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("서울 인천 경기 비교")
+
+#서울 인천 경기는 현지기압이 비슷하다
 
 ```
+
+```{r}
+광주 <- analysis_total %>% filter( 시도 == '광주') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+대전 <- analysis_total %>% filter( 시도 == '대전') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+
+대전<-대전[-1]
+
+
+data <- cbind(광주,대전)
+colnames(data)[2:3]<-c("광주","대전")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("광주 대전")
+
+#광주 대전은  현지기압이 비슷하다
+
+```
+
+
+```{r}
+
+대구 <- analysis_total %>% filter( 시도 == '대구') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+충남 <- analysis_total %>% filter( 시도 == '충남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+경남 <- analysis_total %>% filter( 시도 == '경남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+충남<-충남[-1]
+경남<-경남[-1]
+
+
+data <- cbind(대구,충남,경남)
+colnames(data)[2:4]<-c("대구","충남","경남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("대구 충남 경남 비교")
+
+#대구 충남 경남은 현지기압이 비슷하다
+
+```
+
+
+```{r}
+울산 <- analysis_total %>% filter( 시도 == '울산') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+부산 <- analysis_total %>% filter( 시도 == '부산') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+전남 <- analysis_total %>% filter( 시도 == '전남') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+부산<-부산[-1]
+전남<-전남[-1]
+
+
+data <- cbind(울산,부산,전남)
+colnames(data)[2:4]<-c("울산","부산","전남")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("울산 부산 전남 비교")
+
+#울산 부산 전남은 현지기압이 비슷하다
+
+```
+
+
+```{r}
+충북 <- analysis_total %>% filter( 시도 == '충북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+전북 <- analysis_total %>% filter( 시도 == '전북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+
+전북<-전북[-1]
+
+
+data <- cbind(충북,전북)
+colnames(data)[2:3]<-c("충북","전북")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("충북 전북")
+
+#충북이 전북보다  현지기압이 높다
+```
+
+
+```{r}
+경북 <- analysis_total %>% filter( 시도 == '경북') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+강원 <- analysis_total %>% filter( 시도 == '강원') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+
+강원<-강원[-1]
+
+
+data <- cbind(경북,강원)
+colnames(data)[2:3]<-c("경북","강원")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("경북 강원 비교")
+
+#경북이 강원보다 현지기압이 낮다
+#높은 산이 맞은 강원이 현지기압이 낮다
+```
+
+
+```{r}
+세종 <- analysis_total %>% filter( 시도 == '세종') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+제주 <- analysis_total %>% filter( 시도 == '제주') %>% group_by(일시) %>% summarise(`평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`,na.rm=TRUE))
+
+
+제주<-제주[-1]
+
+
+data <- cbind(세종,제주)
+colnames(data)[2:3]<-c("세종","제주")
+data <- melt(data,id.vars=1)
+
+
+
+
+ggplot(data=data , aes(x=일시,y=value, colour=variable, group=variable)) + 
+geom_line() + 
+coord_fixed(ratio = 5) +
+coord_cartesian(ylim = c(960,1030))+
+ggtitle("세종 제주 비교")
+
+#세종 제주는 현지기압이 비슷하다
+```
+
+
+
+
