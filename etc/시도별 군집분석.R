@@ -10,7 +10,7 @@ table(is.na(analysis_total_Fixed))
 analysis_total
 
 analysis_total <- analysis_total %>% 
-  group_by(시도, 인구수) %>% 
+  group_by(시도) %>% 
   summarise(
     `평균기온(°C)` = mean(`평균기온(°C)`,na.rm=TRUE),	
     `최저기온(°C)` = mean(`최저기온(°C)`,na.rm=TRUE),	
@@ -26,7 +26,7 @@ analysis_total <- analysis_total %>%
     NO2 = mean(NO2,na.rm=TRUE),		
     PM10 = mean(PM10,na.rm=TRUE),	
     PM25 = mean(PM25,na.rm=TRUE),	
-    발생건수 = sum(발생건수)
+    발병률 = sum(발병률)
   )	
 
 analysis_total <- analysis_total %>% mutate(`100명당 발생건수` = 발생건수/인구수*100)
