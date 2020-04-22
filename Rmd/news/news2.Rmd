@@ -1,0 +1,70 @@
+---
+title: "호흡기 원인 관련 뉴스 단어 워드클라우드"
+output: html_document
+---
+
+```{r}
+library(readxl)
+library(wordcloud2)
+library(dplyr)
+NewsResult_medical <- read_excel("../../refinedata/news/medicalnews.xlsx")
+
+
+
+content_medical <- c()
+
+
+
+
+
+for( i in 1:nrow(NewsResult_medical)){
+   content_medical[length(content_medical)+1]<-NewsResult_medical$본문[i]
+}
+
+
+```
+
+
+
+```{r include=FALSE}
+
+content_medical <- str_replace_all(content_medical, "\\W", " ")
+
+
+
+nouns_medical <- extractNoun(content_medical)
+
+
+
+wordcount_medical <- table(unlist(nouns_medical))
+
+
+     
+df_word_medical <- as.data.frame(wordcount_medical, stringsAsFactors = F)
+
+
+
+
+
+df_word_medical <- rename(df_word_medical,
+                  word = Var1,
+                  freq = Freq)
+
+df_word_medical <- filter(df_word_medical, nchar(word) >= 2)
+
+df_word_medical <- df_word_medical %>% arrange(desc(freq))
+
+
+
+```
+
+
+
+
+
+```{r}
+figPath = system.file("examples/5.png",package = "wordcloud2")
+
+wordcloud2(df_word_medical, figPath = figPath ,size=1.3)
+```
+

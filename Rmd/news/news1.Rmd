@@ -1,0 +1,75 @@
+---
+title: "미세먼지관련 뉴스 단어 워드클라우드"
+output: html_document
+---
+
+```{r}
+library(readxl)
+library(wordcloud2)
+
+NewsResult_dust <- read_excel("../../refinedata/news/dustnews.xlsx")
+
+
+
+content_dust <- c()
+
+for( i in 1:nrow(NewsResult_dust)){
+   content_dust[length(content_dust)+1]<-NewsResult_dust$본문[i]
+}
+
+
+
+
+```
+
+
+
+```{r include=FALSE}
+library(KoNLP)
+library(stringr)
+library(dplyr)
+
+# 시스템 사전 로딩(loading)
+# useSystemDic()
+
+# 세종 사전 로딩(loading)
+useSejongDic()
+
+# NIA 사전 로딩(loading)
+# useNIADic()
+
+
+
+```
+
+```{r include=FALSE}
+content_dust <- str_replace_all(content_dust, "\\W", " ")
+
+nouns_dust <- extractNoun(content_dust)
+
+wordcount_dust <- table(unlist(nouns_dust))
+
+df_word_dust <- as.data.frame(wordcount_dust, stringsAsFactors = F)
+
+df_word_dust <- rename(df_word_dust,
+                  word = Var1,
+                  freq = Freq)
+
+df_word_dust <- filter(df_word_dust, nchar(word) >= 2)
+
+df_word_dust <- df_word_dust %>% arrange(desc(freq))
+```
+
+```{r}
+
+
+figPath = system.file("examples/6.png",package = "wordcloud2")
+
+wordcloud2(df_word_dust, figPath = figPath ,size=0.5)
+
+
+
+```
+
+
+

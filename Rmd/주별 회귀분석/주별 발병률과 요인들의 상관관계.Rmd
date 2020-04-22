@@ -1,5 +1,5 @@
 ---
-title: "주별회귀분석"
+title: "주별 발병률과 요인들의 상관관계계석"
 output: html_document
 ---
 

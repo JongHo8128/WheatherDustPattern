@@ -1,0 +1,93 @@
+---
+title: "주별 요인들 지연효과 확인"
+output: html_document
+---
+
+```{r}
+load('../../refinedata/analysis/analysis_total_Fixed.rda')
+library(dplyr)
+library(FinCal)
+library(car)
+library(gvlma)
+library(ggplot2)
+library(tidyr)
+library(forecast)
+
+n <- rep(1:157,each = 7)
+analysis_total_Fixed$주 <- rep(n[1:1096], 17)
+analysis_total_Fixed <- as.data.frame(analysis_total_Fixed)
+analysis_total_week <- analysis_total_Fixed %>% 
+  group_by(주) %>% 
+  summarise(`평균기온(°C)` = mean(`평균기온(°C)`),
+            `평균 풍속(m/s)` = mean(`평균 풍속(m/s)`),
+            `평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`),
+            `일강수량(mm)` = mean(`일강수량(mm)`),
+            SO2 = geometric.mean(SO2),
+            CO = geometric.mean(CO),
+            O3 = geometric.mean(O3),
+            NO2 = geometric.mean(NO2),
+            PM10 = geometric.mean(PM10),
+            PM25 = geometric.mean(PM25),
+            발병률 = sum(발병률)
+            )
+```
+
+```{r}
+ts_발병률 <- ts(analysis_total_week$발병률, start = c(2016, 1), freq = 52)
+
+```
+
+
+
+
+
+```{r}
+ts_O3_original <- ts(lag(analysis_total_week$O3,0), start = c(2016, 1), freq = 52)#omnibus o
+ts_O3 <- ts(lag(analysis_total_week$O3,30), start = c(2016, 1), freq = 52)#omnibus o
+ts_NO2 <- ts(lag(analysis_total_week$NO2,0), start = c(2016, 1), freq = 52)#omnibus x
+ts_CO <- ts(lag(analysis_total_week$CO,0), start = c(2016, 1), freq = 52)#omnibus o
+ts_SO2 <- ts(lag(analysis_total_week$SO2,0), start = c(2016, 1), freq = 52)#omnibus x
+ts_PM10 <- ts(lag(analysis_total_week$PM10,0), start = c(2016, 1), freq = 52)#omnibus x
+ts_PM25 <- ts(lag(analysis_total_week$PM25,0), start = c(2016, 1), freq = 52)#omnibus x
+ts_rain <- ts(lag(analysis_total_week$`일강수량(mm)`,25), start = c(2016, 1), freq = 52)#omnibus o
+ts_temperature <- ts(lag(analysis_total_week$`평균기온(°C)`,0), start = c(2016, 1), freq = 52)#omnibus x
+ts_air <- ts(lag(analysis_total_week$`평균 현지기압(hPa)`,1), start = c(2016, 1), freq = 52)#omnibus o
+ts_wind <- ts(lag(analysis_total_week$`평균 풍속(m/s)`,36), start = c(2016, 1), freq = 52)#omnibus o
+```
+
+```{r}
+plot(ts_발병률,col='red')
+
+```
+
+```{r}
+plot(ts_O3_original,col='blue')
+```
+
+```{r}
+plot(ts_O3,col='blue')
+```
+
+```{r}
+fit <- lm( ts_발병률~ts_O3)
+summary(fit)
+fit <- lm( ts_발병률~ts_CO )
+summary(fit)
+fit <- lm( ts_발병률~ts_rain)
+summary(fit)
+fit <- lm( ts_발병률~ts_air)
+summary(fit)
+fit <- lm( ts_발병률~ts_wind)
+summary(fit)
+
+fit <- lm( ts_발병률~ts_O3*ts_NO2*ts_CO+ts_SO2*ts_PM10+ts_air)
+summary(fit)
+
+```
+
+```{r}
+gvlma(fit)
+```
+
+
+

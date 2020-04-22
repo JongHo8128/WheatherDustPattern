@@ -1,0 +1,435 @@
+---
+title: "지역별 요인 추이"
+output: html_document
+---
+
+```{r}
+load("../../refinedata/analysis/analysis_total_Fixed.rda")
+
+```
+
+
+```{r}
+library(data.table)
+library(dplyr)
+library(ggplot2)
+
+library(FinCal)
+n <- rep(1:157,each = 7)
+analysis_total_Fixed$주 <- rep(n[1:1096], 17)
+analysis_total_Fixed <- as.data.frame(analysis_total_Fixed)
+analysis_total_week <- analysis_total_Fixed %>% 
+  group_by(주) %>% 
+  summarise(`평균기온(°C)` = mean(`평균기온(°C)`),
+            `평균 풍속(m/s)` = mean(`평균 풍속(m/s)`),
+            `평균 현지기압(hPa)` = mean(`평균 현지기압(hPa)`),
+            `일강수량(mm)` = mean(`일강수량(mm)`),
+            SO2 = geometric.mean(SO2),
+            CO = geometric.mean(CO),
+            O3 = geometric.mean(O3),
+            NO2 = geometric.mean(NO2),
+            PM10 = geometric.mean(PM10),
+            PM25 = geometric.mean(PM25),
+            발병률 = sum(발병률)
+            )
+
+pollution <- analysis_total_week  %>% select(주,SO2,NO2,CO,O3,발병률)
+pollution <- melt(pollution,id.vars=c("주"))
+
+ggplot( data=pollution,aes(x=주, y=value, group=variable, color=variable)) +
+    geom_line() +
+    ggtitle("주별 오염물질과 발병률 시계열 추이") +
+    ylab("농도")
+```
+
+
+
+```{r fig.height=4.72, fig.width = 9.44, fig.show = 'hold'}
+ggplot( data=analysis_total_week,aes(x=주, y=발병률)) +
+    geom_line() +
+    ggtitle("주별 발병률") 
+ggplot( data=analysis_total_week,aes(x=주, y=SO2)) +
+    geom_line() +
+    ggtitle("주별 SO2") 
+ggplot( data=analysis_total_week,aes(x=주, y=CO)) +
+    geom_line() +
+    ggtitle("주별 CO")
+ggplot( data=analysis_total_week,aes(x=주, y=NO2)) +
+    geom_line() +
+    ggtitle("주별 NO2")
+ggplot( data=analysis_total_week,aes(x=주, y=O3)) +
+    geom_line() +
+    ggtitle("주별 O3")
+```
+
+```{r fig.height=4.72, fig.width = 9.44, fig.show = 'hold'}
+ggplot( data=analysis_total_week,aes(x=주, y=발병률)) +
+    geom_line() +
+    ggtitle("주별 발병률") 
+ggplot( data=analysis_total_week,aes(x=주, y=`평균기온(°C)`)) +
+    geom_line() +
+    ggtitle("주별 평균기온") 
+ggplot( data=analysis_total_week,aes(x=주, y=`평균 풍속(m/s)`)) +
+    geom_line() +
+    ggtitle("주별 평균 풍속")
+ggplot( data=analysis_total_week,aes(x=주, y=`평균 현지기압(hPa)`)) +
+    geom_line() +
+    ggtitle("주별 평균 현지기압")
+ggplot( data=analysis_total_week,aes(x=주, y=`일강수량(mm)`)) +
+    geom_line() +
+    ggtitle("주별 일강수량")
+```
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <-max(analysis_total_week$CO)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=CO/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="CO")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & CO")
+```
+
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <-max(analysis_total_week$O3)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=O3/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="O3")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & O3")
+```
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <-max(analysis_total_week$NO2)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=NO2/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="NO2")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & NO2")
+```
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <-max(analysis_total_week$SO2)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=SO2/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="SO2")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & SO2")
+```
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$`평균기온(°C)`)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "purple"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=`평균기온(°C)`/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="평균기온(°C)")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & 평균기온(°C)")
+```
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$`평균 풍속(m/s)`)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "purple"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=`평균 풍속(m/s)`/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="평균 풍속(m/s)")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & 평균 풍속(m/s)")
+```
+
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$`평균 현지기압(hPa)`)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "purple"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=`평균 현지기압(hPa)`/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="평균 현지기압(hPa)")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & 평균 현지기압(hPa)")
+```
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$`일강수량(mm)`)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "purple"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=`일강수량(mm)`/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="일강수량(mm)")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & 일강수량(mm)")
+```
+
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$PM25)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "brown"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=PM25/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="PM25")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & PM25")
+
+```
+
+```{r}
+library(ggplot2)
+library(hrbrthemes)
+# Value used to transform the data
+coeff <- max(analysis_total_week$PM10)/max(analysis_total_week$발병률)
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- "brown"
+
+ggplot(analysis_total_week, aes(x=주)) +
+  
+  geom_line( aes(y=발병률), size=2, color=temperatureColor) + 
+  geom_line( aes(y=PM10/coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "발병률",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="PM10")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    legend.title = element_text(face = 4,color = 'red',size = 15)
+    ,axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("발병률 & PM10")
+
+
+
+```
